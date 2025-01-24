@@ -12,9 +12,17 @@
   --color-primary-dark: #ac72fd;
   --color-secondary-dark: #ac022f;
   --color-accent-dark: #fb4d18;
-
 }
 
 .shadow-border {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.text {
+  @apply text-text-light dark:text-text-dark;
+}
+
+.trainee-list-item {
+  grid-template-columns: 2rem calc(25% - 2rem) calc(25% - 2rem) calc(25% - 3.5rem) calc(25% - 3.5rem) 4rem;
+  @apply grid gap-4 h-10 items-center;
 }

@@ -1,6 +1,7 @@
-import Button from "../Button";
-import Input from "./Input";
-import Label from "./Label";
+import { useSearchParams } from "react-router";
+import Button from "./Button";
+import Input from "./Form/Input";
+import Label from "./Form/Label";
 interface Props {
   items: {
     name: string;
@@ -13,8 +14,22 @@ interface Props {
 }
 
 export default function SearchForm({ items }: Props) {
+  const [, setSearchParams] = useSearchParams();
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const params = new URLSearchParams();
+    for (const [key, value] of formData) {
+      params.append(key, value.toString());
+    }
+    setSearchParams(params);
+  };
   return (
-    <form action="" className="flex items-center justify-center gap-2">
+    <form
+      onSubmit={onSubmit}
+      className="flex items-center justify-center gap-2"
+    >
       <div className="grid grid-cols-2 gap-2">
         {items.map((item) => (
           <Input

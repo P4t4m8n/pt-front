@@ -12,7 +12,7 @@ export default function App() {
       <BrowserRouter>
         <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
           <Header />
-          <section className="h-[calc(100svh-8rem)] overflow-auto">
+          <section className="h-[calc(100svh-8rem)] overflow-auto p-4">
             <Routes>{routes}</Routes>
           </section>
           <AppNav />
