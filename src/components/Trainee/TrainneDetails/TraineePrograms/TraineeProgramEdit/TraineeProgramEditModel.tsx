@@ -31,16 +31,15 @@ export default function TraineeProgramEditModel({
     try {
       setIsLoading(true);
       const formData = new FormData(e.currentTarget);
-      //TODO add ids and data validation
-      // const program = await programService.save(formData);
-      // setPrograms((prev) => {
-      //   const idx = prev.findIndex((p) => p?.id === program?.id);
-      //   if (idx > -1) {
-      //     prev[idx] = program;
-      //     return [...prev];
-      //   }
-      //   return [...prev, program];
-      // });
+      const program = await programService.save(formData);
+      setPrograms((prev) => {
+        const idx = prev.findIndex((p) => p?.id === program?.id);
+        if (idx > -1) {
+          prev[idx] = program;
+          return [...prev];
+        }
+        return [...prev, program];
+      });
       setIsOpen(false);
     } catch (error) {
       console.error(error);

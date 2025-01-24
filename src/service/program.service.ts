@@ -1,8 +1,13 @@
-import { TDaysOfWeek, TProgramDto } from "../types/program.type";
+import { TDaysOfWeek, TProgram, TProgramDto } from "../types/program.type";
+import { apiService } from "./api.service";
 
-const save = async (formData: FormData) => {
+const BASE_URL = "program/";
+
+const save = async (formData: FormData): Promise<TProgram> => {
   const dto = formDataToProgramDto(formData);
-  console.log("dto:", dto);
+  return dto?.id
+    ? await apiService.put<TProgramDto, TProgram>(`${BASE_URL}/${dto.id}`, dto)
+    : await apiService.post<TProgramDto, TProgram>(BASE_URL + "create", dto);
 };
 
 const formDataToProgramDto = (formData: FormData): TProgramDto => {
