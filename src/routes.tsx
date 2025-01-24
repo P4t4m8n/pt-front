@@ -5,6 +5,7 @@ import AuthIndex from "./pages/AuthIndex";
 import TrainerIndex from "./pages/TrainerIndex";
 import TraineesIndex from "./components/Trainer/Trainnes/TraineesIndex";
 import TrainerSearchIndex from "./components/Trainer/Search/TrainerSearchIndex";
+import TrainerTraineeDetails from "./components/Trainer/Trainnes/TrainerTraineeDetails";
 
 export const renderRoutes = (routes: RouteConfig[]) => {
   return routes.map((route) => (
@@ -30,6 +31,10 @@ export const ROUTES: RouteConfig[] = [
       {
         path: "trainees",
         element: <TraineesIndex />,
+      },
+      {
+        path: "trainees/:id",
+        element: <TrainerTraineeDetails />,
       },
       {
         path: "search",

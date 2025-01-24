@@ -9,6 +9,11 @@ const get = async (filter: TTraineeFilter) => {
   return trainees;
 };
 
+const getById = async (id: string): Promise<TTrainee> => {
+  const trainee = await apiService.get<TTrainee>(BASE_URL + id);
+  return trainee;
+};
+
 const create = async (formData: FormData): Promise<string> => {
   const dto = formDataToDto(formData);
   const { id } = await apiService.post<TTraineeDto, { id: string }>(
@@ -36,5 +41,6 @@ const formDataToDto = (formData: FormData): TTraineeDto => {
 
 export const traineeService = {
   get,
+  getById,
   create,
 };

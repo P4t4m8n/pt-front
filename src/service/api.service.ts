@@ -2,7 +2,7 @@ const BASE_URL = "http://localhost:3030/api/";
 type TApiService = {
   get<T>(endpoint: string, data?: unknown): Promise<T>;
   post<T, R>(endpoint: string, data?: T): Promise<R>;
-  put<T>(endpoint: string, data?: unknown): Promise<T>;
+  put<T, R>(endpoint: string, data?: T): Promise<R>;
   delete<T>(endpoint: string, data?: unknown): Promise<T>;
   buildQuery(filter: Record<string, unknown>): string;
 };

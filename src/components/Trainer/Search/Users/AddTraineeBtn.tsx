@@ -22,7 +22,7 @@ export default function AddTraineeButton({ userId }: Props) {
       const formData = new FormData(e.currentTarget);
       const id = await traineeService.create(formData);
       if (!id) throw new Error("Failed to create trainee");
-      navigate(`/trainee/${id}`);
+      navigate(`/trainer/trainee/${id}`);
     } catch (error) {
       console.error(error);
     } finally {
