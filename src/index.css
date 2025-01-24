@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-text-light: #100029;
+  --color-background-light: #ede0ff;
+  --color-primary-light: #3c028d;
+  --color-secondary-light: #fd5381;
+  --color-accent-light: #e73904;
+
+  --color-text-dark: #e6d6ff;
+  --color-background-dark: #0d001f;
+  --color-primary-dark: #ac72fd;
+  --color-secondary-dark: #ac022f;
+  --color-accent-dark: #fb4d18;
+
+}
+
+.shadow-border {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
