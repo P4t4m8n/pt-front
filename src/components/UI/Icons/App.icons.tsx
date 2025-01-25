@@ -144,11 +144,15 @@ const SaveSvg = ({ className }: { className?: string }) => {
 
 const DeleteSvg = ({ className }: { className?: string }) => {
   return (
-    <svg viewBox="0 0 1024 1024" fill="#000000" className={className}>
-      <path
-        fill="#000000"
-        d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32zm192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32z"
-      ></path>
+    <svg
+      viewBox="0 0 1024 1024"
+      className={
+        className
+          ? className
+          : "h-6 aspect-square fill-text-light dark:fill-text-dark"
+      }
+    >
+      <path d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32zm192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32z"></path>
     </svg>
   );
 };
@@ -162,14 +166,14 @@ const CameraSvg = ({ className }: { className?: string }) => {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-      ></path>{" "}
+      ></path>
       <path
         d="M3 16.8V9.2C3 8.0799 3 7.51984 3.21799 7.09202C3.40973 6.71569 3.71569 6.40973 4.09202 6.21799C4.51984 6 5.0799 6 6.2 6H7.25464C7.37758 6 7.43905 6 7.49576 5.9935C7.79166 5.95961 8.05705 5.79559 8.21969 5.54609C8.25086 5.49827 8.27836 5.44328 8.33333 5.33333C8.44329 5.11342 8.49827 5.00346 8.56062 4.90782C8.8859 4.40882 9.41668 4.08078 10.0085 4.01299C10.1219 4 10.2448 4 10.4907 4H13.5093C13.7552 4 13.8781 4 13.9915 4.01299C14.5833 4.08078 15.1141 4.40882 15.4394 4.90782C15.5017 5.00345 15.5567 5.11345 15.6667 5.33333C15.7216 5.44329 15.7491 5.49827 15.7803 5.54609C15.943 5.79559 16.2083 5.95961 16.5042 5.9935C16.561 6 16.6224 6 16.7454 6H17.8C18.9201 6 19.4802 6 19.908 6.21799C20.2843 6.40973 20.5903 6.71569 20.782 7.09202C21 7.51984 21 8.0799 21 9.2V16.8C21 17.9201 21 18.4802 20.782 18.908C20.5903 19.2843 20.2843 19.5903 19.908 19.782C19.4802 20 18.9201 20 17.8 20H6.2C5.0799 20 4.51984 20 4.09202 19.782C3.71569 19.5903 3.40973 19.2843 3.21799 18.908C3 18.4802 3 17.9201 3 16.8Z"
         stroke="#000000"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-      ></path>{" "}
+      ></path>
     </svg>
   );
 };
@@ -260,6 +264,37 @@ const LogoutSvg = ({ className }: { className?: string }) => {
   );
 };
 
+const PlusSvg = ({ className }: { className?: string }) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={
+        className
+          ? className
+          : "h-6 aspect-square stroke-text-light dark:stroke-text-dark"
+      }
+    >
+      <path d="M12 6V18" strokeLinecap="round" strokeLinejoin="round"></path>
+      <path d="M6 12H18" strokeLinecap="round" strokeLinejoin="round"></path>
+    </svg>
+  );
+};
+
+const MinusSvg = ({ className }: { className?: string }) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={
+        className
+          ? className
+          : "h-6 aspect-square stroke-text-light dark:stroke-text-dark"
+      }
+    >
+      <path d="M6 12H18" strokeLinecap="round" strokeLinejoin="round"></path>
+    </svg>
+  );
+};
+
 export const icons = {
   HamburgerSvg,
   CopySvg,
@@ -278,4 +313,6 @@ export const icons = {
   TrainerSvg,
   SettingsSvg,
   TraineeSvg,
+  PlusSvg,
+  MinusSvg,
 };

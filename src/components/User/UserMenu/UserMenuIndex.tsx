@@ -33,9 +33,9 @@ export default function UserMenuIndex() {
         className="h-full aspect-square fill-white"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        {user.imgUrl ? (
+        {user?.imgUrl ? (
           <Image
-            src={user.imgUrl}
+            src={user?.imgUrl}
             alt="User avatar"
             className="w-8 h-8 stroke-text-light dark:stroke-text-dark fill-text-light dark:fill-text-dark"
           />

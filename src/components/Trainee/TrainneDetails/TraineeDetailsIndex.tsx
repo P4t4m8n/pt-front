@@ -9,7 +9,6 @@ interface Props {
 }
 export default function TraineeDetailsIndex({ trainee }: Props) {
   const { user, metrics, programs, trainings, id } = trainee;
-  console.log("programs:", programs);
   return (
     <div className="grid grid-cols-2 grid-rows-2 w-full h-nested gap-4 ">
       <TraineeInfo user={user} />

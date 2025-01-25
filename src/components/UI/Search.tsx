@@ -10,6 +10,7 @@ interface Props {
     divStyle?: string;
     id?: string;
     label?: string;
+    value?: string;
   }[];
 }
 
@@ -39,6 +40,7 @@ export default function SearchForm({ items }: Props) {
             type={item.type}
             divStyle={item.divStyle}
             id={item.id}
+            value={item.value}
           >
             {item.label && <Label htmlFor={item.id}>{item.label}</Label>}
           </Input>

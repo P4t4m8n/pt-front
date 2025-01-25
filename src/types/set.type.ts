@@ -10,7 +10,6 @@ export type TSet = TEntity & {
 
 export type TSetDto = TSet & {
   trainingId?: string;
-  setHistoryId?: string;
 };
 
 export type TSetHistory = TEntity & {

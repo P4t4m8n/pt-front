@@ -1,21 +1,20 @@
-//TODO add dynamic component based on the search params (users, trainees, trainers, etc) for different actions
-
 import { useEffect, useState } from "react";
 
 import { TUser, TUserFilter } from "../../../types/user.type";
 import SearchForm from "../../UI/Search";
-import { Location, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { userService } from "../../../service/user.service";
 import UsersList from "./Users/UsersList";
 
+//TODO add dynamic component based on the search params (users, trainees, trainers, etc) for different actions
 export default function TrainerSearchIndex() {
   const [users, setUsers] = useState<TUser[] | null>(null);
-  const location = useLocation();
+  const { search } = useLocation();
 
   useEffect(() => {
-    const loadUsers = async (location: Location) => {
+    const loadUsers = async (location: string) => {
       try {
-        const params = new URLSearchParams(location.search);
+        const params = new URLSearchParams(location);
         const filter: TUserFilter = {
           firstName: params.get("firstName"),
           lastName: params.get("lastName"),
@@ -27,14 +26,13 @@ export default function TrainerSearchIndex() {
             params.get("includeTrainees") === "on" ? true : false,
         };
         const _users = await userService.get(filter);
-        console.log("_users:", _users);
         setUsers(_users);
       } catch (error) {
         console.error(error);
       }
     };
-    loadUsers(location);
-  }, [location]);
+    loadUsers(search);
+  }, [search]);
 
   if (!users) return <div>Loading...</div>;
   return (

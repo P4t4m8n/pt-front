@@ -56,11 +56,11 @@ export const useModel = (
     currentEventListeners.click = checkClickOutside;
     currentEventListeners.keydown = checkKeyPress;
 
-    document.addEventListener("mousedown", currentEventListeners.click);
-    document.addEventListener("keydown", currentEventListeners.keydown);
+    window.addEventListener("mousedown", currentEventListeners.click);
+    window.addEventListener("keydown", currentEventListeners.keydown);
     return () => {
-      document.removeEventListener("mousedown", currentEventListeners.click);
-      document.removeEventListener("keydown", currentEventListeners.keydown);
+      window.removeEventListener("mousedown", currentEventListeners.click);
+      window.removeEventListener("keydown", currentEventListeners.keydown);
     };
   }, [open, ref, checkClickOutside, checkKeyPress]);
 

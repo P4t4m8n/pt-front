@@ -8,7 +8,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 const Input = memo(function Input({ divStyle, children, ...props }: Props) {
   const style = props.className
     ? props.className
-    : `block w-full px-3 py-2 
+    : `block w-full px-3 py-2 h-10
           shadow-border text
           rounded-md placeholder-gray-400
           focus:outline-hidden focus:ring-2 
@@ -17,7 +17,7 @@ const Input = memo(function Input({ divStyle, children, ...props }: Props) {
   return (
     <div className={divStyle}>
       {children}
-      <input {...props} className={style}  />
+      <input {...props} className={style} />
     </div>
   );
 });

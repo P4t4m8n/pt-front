@@ -43,6 +43,7 @@ const LOGIN_INPUTS = [
     required: true,
     pattern: "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$", // Normal email format
     title: "Please enter a valid email address.",
+    autoComplete: "email",
   },
   {
     type: "password",

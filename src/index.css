@@ -12,6 +12,9 @@
   --color-primary-dark: #ac72fd;
   --color-secondary-dark: #ac022f;
   --color-accent-dark: #fb4d18;
+
+  --height-main: calc(100svh - 8rem);
+  --height-main-with-gap: calc(100svh - 9rem);
 }
 
 .shadow-border {
@@ -23,6 +26,30 @@
 }
 
 .trainee-list-item {
-  grid-template-columns: 2rem calc(25% - 2rem) calc(25% - 2rem) calc(25% - 3.5rem) calc(25% - 3.5rem) 4rem;
+  grid-template-columns:
+    2rem calc(25% - 2rem) calc(25% - 2rem) calc(25% - 3.5rem)
+    calc(25% - 3.5rem) 4rem;
   @apply grid gap-4 h-10 items-center;
+}
+
+body {
+  /* width */
+  ::-webkit-scrollbar {
+    width: .25rem;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }
