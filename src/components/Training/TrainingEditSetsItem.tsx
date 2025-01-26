@@ -15,18 +15,22 @@ export default function TrainingEditSetsItem({ set, onRemoveSet }: Props) {
     <li className="flex gap-4 items-end ">
       {Object.entries(set).map(
         ([key, value]) =>
-          key !== "id" &&
           key !== "trainerId" && (
             <Input
               key={key}
               type="number"
               placeholder={key}
               defaultValue={value}
-              name={`set-${key}-${set.id}`}
-              id={`set-${key}-${set.id}`}
+              name={`set_${key}_${set.id}`}
+              id={`set_${key}_${set.id}`}
               divStyle="grid items-center "
+              hidden={key === "id"}
             >
-              <Label className="" htmlFor={`set-${key}-${set.id}`}>
+              <Label
+                hidden={key === "id"}
+                className=""
+                htmlFor={`set_${key}_${set.id}`}
+              >
                 {appUtil.capitalFirstLetter(key)}:
               </Label>
             </Input>

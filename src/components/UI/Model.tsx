@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { cloneElement, useRef } from "react";
 import { useModel } from "../../hooks/useModel";
 import Button from "../UI/Button";
 import ModelOverlay from "../UI/ModelOverlay";
@@ -14,7 +14,8 @@ interface Props {
 export default function Model({ button, model }: Props) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useModel(modelRef);
-  console.log("isOpen:", isOpen);
+
+  const modelWithClose = cloneElement(model as React.ReactElement, { setIsOpen });
   return (
     <>
       <Button
@@ -28,7 +29,7 @@ export default function Model({ button, model }: Props) {
       {isOpen && (
         <ModelOverlay>
           <div className="h-fit w-fit" ref={modelRef}>
-            {model}
+            {modelWithClose}
           </div>
         </ModelOverlay>
       )}

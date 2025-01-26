@@ -11,7 +11,17 @@ import TrainingEditSets from "./TrainingEditSets";
 import TextArea from "../UI/Form/TextArea";
 import Button from "../UI/Button";
 
-export default function TrainingEdit() {
+interface Props {
+  idProps?: string;
+  setTrainings: React.Dispatch<React.SetStateAction<TTraining[] | null>>;
+  setIsOpen?: (isOpen: boolean) => void;
+}
+
+export default function TrainingEdit({
+  idProps,
+  setTrainings,
+  setIsOpen,
+}: Props) {
   const [trainingToEdit, setTrainingToEdit] = useState<TTraining | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const { id } = useParams<{ id?: string }>();
@@ -27,8 +37,11 @@ export default function TrainingEdit() {
         console.error(error);
       }
     };
-    loadTraining(id);
-  }, [id]);
+
+    const _id = idProps || id;
+
+    loadTraining(_id);
+  }, [id, idProps]);
 
   const onAddSet = (e: MouseEvent) => {
     e.preventDefault();
@@ -46,11 +59,10 @@ export default function TrainingEdit() {
       console.error("No sets to remove");
       return;
     }
-    
+
     let sets = [];
-    
+
     if (!id) {
-      console.log("id:", id)
       sets = trainingToEdit.defaultSets.toSpliced(
         trainingToEdit.defaultSets.length - 1
       );
@@ -66,7 +78,16 @@ export default function TrainingEdit() {
       setIsSaving(true);
       const formData = new FormData(e?.currentTarget);
       const training = await trainingService.save(formData);
-      console.log("training:", training);
+      setTrainings((prev) => {
+        if (!prev) return [training];
+
+        const index = prev.findIndex((t) => t.id === training.id);
+        if (index === -1) return [...prev, training];
+        const newTrainings = [...prev];
+        newTrainings[index] = training;
+        return newTrainings;
+      });
+      if (setIsOpen) setIsOpen(false);
     } catch (error) {
       console.error(error);
     } finally {
@@ -83,6 +104,12 @@ export default function TrainingEdit() {
         placeholder="Training Name"
         name="name"
         defaultValue={trainingToEdit?.name}
+      />
+      <Input
+        type="text"
+        name="id"
+        defaultValue={trainingToEdit?.id}
+        hidden
       />
       <TextArea
         name="description"

@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { TTraining } from "../../types/training.type";
-import { useUser } from "../../hooks/useUser";
 import { useLocation } from "react-router";
+
+import { TTraining } from "../../types/training.type";
+
+import { useUser } from "../../hooks/useUser";
+
 import { trainingService } from "../../service/training.service";
+
 import SearchForm from "../UI/Search";
-import ItemList from "../UI/ItemList";
-import TrainingPreview from "./TrainingPreview";
 import Model from "../UI/Model";
+
 import TrainingEdit from "./TrainingEdit";
+import TrainingTable from "./TrainingTable";
 
 export default function TrainingIndex() {
   const [trainings, setTrainings] = useState<TTraining[] | null>(null);
@@ -19,7 +23,6 @@ export default function TrainingIndex() {
       try {
         const params = new URLSearchParams(location);
         const _trainings = await trainingService.get(params);
-        console.log("_trainings:", _trainings);
         setTrainings(_trainings);
       } catch (error) {
         console.error(error);
@@ -46,18 +49,20 @@ export default function TrainingIndex() {
 
   return (
     <div>
-      <SearchForm items={SEARCH_ITEMS} />
-      <Model
-        button={{
-          content: "Create Training",
-          props: { className: "btn btn-primary" },
-        }}
-        model={<TrainingEdit />}
-      />
-      <ItemList
-        items={trainings || []}
-        renderItem={(training) => <TrainingPreview training={training} />}
-      />
+      <div className="flex items-center justify-between">
+        <SearchForm items={SEARCH_ITEMS} />
+        <Model
+          button={{
+            content: "Create Training",
+            props: {
+              className:
+                "btn btn-primary p-2 shadow-border rounded bg-secondary-light dark:bg-primary-dark",
+            },
+          }}
+          model={<TrainingEdit setTrainings={setTrainings} />}
+        />
+      </div>
+      <TrainingTable trainings={trainings || []} setTrainings={setTrainings} />
     </div>
   );
 }

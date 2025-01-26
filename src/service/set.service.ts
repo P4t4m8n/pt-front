@@ -12,12 +12,12 @@ const getEmpty = (): TSetDto => {
 
 const fromDataToDto = (formData: FormData): TSetDto[] => {
   const data = new Map<
-    string,
-    { reps: number; weight: number; rest: number }
+  string,
+  { reps: number; weight: number; rest: number }
   >();
-
+  
   formData.forEach((value, key) => {
-    const [, field, id] = key.split("-");
+    const [, field, id] = key.split("_");
     if (!data.has(id)) {
       data.set(id, { reps: 0, weight: 0, rest: 0 });
     }
