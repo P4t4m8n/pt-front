@@ -1,9 +1,9 @@
-import { TSet } from "../../types/set.type";
-import { appUtil } from "../../utils/app.util";
-import Button from "../UI/Button";
-import Input from "../UI/Form/Input";
-import Label from "../UI/Form/Label";
-import { icons } from "../UI/Icons/App.icons";
+import { TSet } from "../../../types/set.type";
+import { appUtil } from "../../../utils/app.util";
+import Button from "../../UI/Button";
+import Input from "../../UI/Form/Input";
+import Label from "../../UI/Form/Label";
+import { icons } from "../../UI/Icons/App.icons";
 
 interface Props {
   set: TSet;

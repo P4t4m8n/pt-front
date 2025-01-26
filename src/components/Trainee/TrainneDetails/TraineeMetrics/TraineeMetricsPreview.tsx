@@ -1,7 +1,8 @@
-import TraineeMetricsEditModel from "./TraineeMetricsEditModel";
-import TraineeMetricsDetailsModel from "./TraineeMetricsDetailsModel";
 import { TTraineeMetrics } from "../../../../types/trainee.type";
 import { dateUtil } from "../../../../utils/date.util";
+import Model from "../../../UI/Model";
+import TraineeMetricEdit from "./TraineeMetricEdit";
+import TraineeMetricsDetails from "./TraineeMetricsDetails";
 
 interface Props {
   metric: TTraineeMetrics;
@@ -18,11 +19,31 @@ export default function TraineeMetricsPreview({
     <li className="border p-2 rounded flex justify-between h-8 items-center">
       <p>{date}</p>
       <span className="flex gap-2">
-        <TraineeMetricsDetailsModel metric={metric} />
-        <TraineeMetricsEditModel
-          metric={metric}
-          setMetrics={setMetrics}
-          traineeId={traineeId}
+        <Model
+          button={{
+            content: "View",
+            props: {
+              className:
+                "btn btn-primary p-2 shadow-border rounded bg-secondary-light dark:bg-primary-dark h-fit",
+            },
+          }}
+          model={<TraineeMetricsDetails metric={metric} />}
+        />
+        <Model
+          button={{
+            content: "Edit",
+            props: {
+              className:
+                "btn btn-primary p-2 shadow-border rounded bg-secondary-light dark:bg-primary-dark h-fit",
+            },
+          }}
+          model={
+            <TraineeMetricEdit
+              metric={metric}
+              traineeId={traineeId}
+              setMetrics={setMetrics}
+            />
+          }
         />
       </span>
     </li>

@@ -1,6 +1,7 @@
-import TraineeMetricsEditModel from "../TraineeMetricsEditModel";
 import TraineeMetricsDetails from "../TraineeMetricsDetails";
 import { TTraineeMetrics } from "../../../../../types/trainee.type";
+import Model from "../../../../UI/Model";
+import TraineeMetricEdit from "../TraineeMetricEdit";
 
 interface Props {
   metric?: TTraineeMetrics;
@@ -16,10 +17,21 @@ export default function TraineeMetricsLatest({
     <div className="w-1/2 h-full border-r  px-2">
       <header className="flex justify-between">
         <h2 className="text-2xl font-semibold underline">Latest</h2>
-        <TraineeMetricsEditModel
-          metric={metric}
-          setMetrics={setMetrics}
-          traineeId={traineeId}
+        <Model
+          button={{
+            content: "Edit",
+            props: {
+              className:
+                "btn btn-primary p-2 shadow-border rounded bg-secondary-light dark:bg-primary-dark h-fit",
+            },
+          }}
+          model={
+            <TraineeMetricEdit
+              metric={metric}
+              traineeId={traineeId}
+              setMetrics={setMetrics}
+            />
+          }
         />
       </header>
       <TraineeMetricsDetails metric={metric} />

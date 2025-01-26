@@ -38,7 +38,7 @@ export const ROUTES: RouteConfig[] = [
         element: <TraineesIndex />,
       },
       {
-        path: "trainees/:id",
+        path: "trainee/:id",
         element: <TrainerTraineeDetails />,
       },
       {

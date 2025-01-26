@@ -1,9 +1,8 @@
-import { TSet } from "../../types/set.type";
 
-import { icons } from "../UI/Icons/App.icons";
-
-import Button from "../UI/Button";
-import ItemList from "../UI/ItemList";
+import { TSet } from "../../../types/set.type";
+import Button from "../../UI/Button";
+import { icons } from "../../UI/Icons/App.icons";
+import ItemList from "../../UI/ItemList";
 import TrainingEditSetsItem from "./TrainingEditSetsItem";
 
 interface Props {

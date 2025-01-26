@@ -2,19 +2,12 @@ import { TTraineeMetrics, TTraineeMetricsDto } from "../types/trainee.type";
 import { apiService } from "./api.service";
 
 const save = async (formData: FormData): Promise<TTraineeMetrics> => {
-  const isUpdate = formData.get("id");
   const dto = fromDataToDto(formData);
 
-  const metric = isUpdate
-    ? await apiService.post<TTraineeMetricsDto, TTraineeMetrics>(
-        "metrics/save",
-        dto
-      )
-    : await apiService.put<TTraineeMetricsDto, TTraineeMetrics>(
-        "metrics/save",
-        dto
-      );
-  return metric;
+  return await apiService.post<TTraineeMetricsDto, TTraineeMetrics>(
+    "metrics/edit",
+    dto
+  );
 };
 
 const fromDataToDto = (formData: FormData): TTraineeMetricsDto => {

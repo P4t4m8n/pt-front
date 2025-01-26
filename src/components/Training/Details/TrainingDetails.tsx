@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { TTraining } from "../../types/training.type";
-import { trainingService } from "../../service/training.service";
+import { TTraining } from "../../../types/training.type";
+import { trainingService } from "../../../service/training.service";
 
 interface Props {
   idProps?: string;

@@ -1,15 +1,16 @@
 import { MouseEvent, useEffect, useState } from "react";
 import { useParams } from "react-router";
 
-import { TTraining } from "../../types/training.type";
+import { TTraining } from "../../../types/training.type";
 
-import { trainingService } from "../../service/training.service";
-import { setService } from "../../service/set.service";
+import { trainingService } from "../../../service/training.service";
+import { setService } from "../../../service/set.service";
 
-import Input from "../UI/Form/Input";
+import Input from "../../UI/Form/Input";
+import TextArea from "../../UI/Form/TextArea";
+import Button from "../../UI/Button";
+
 import TrainingEditSets from "./TrainingEditSets";
-import TextArea from "../UI/Form/TextArea";
-import Button from "../UI/Button";
 
 interface Props {
   idProps?: string;
@@ -105,12 +106,7 @@ export default function TrainingEdit({
         name="name"
         defaultValue={trainingToEdit?.name}
       />
-      <Input
-        type="text"
-        name="id"
-        defaultValue={trainingToEdit?.id}
-        hidden
-      />
+      <Input type="text" name="id" defaultValue={trainingToEdit?.id} hidden />
       <TextArea
         name="description"
         placeholder="Description"

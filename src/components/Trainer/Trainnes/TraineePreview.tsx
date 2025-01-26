@@ -28,7 +28,7 @@ export default function TraineePreview({ trainee }: Props) {
           styleMode="none"
           styleSize="none"
           className="border rounded p-2"
-          to={`/trainer/trainees/${trainee.id}`}
+          to={`/trainer/trainee/${trainee.id}`}
         >
           Details
         </NavLinkCmp>

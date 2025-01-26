@@ -10,8 +10,8 @@ import { trainingService } from "../../service/training.service";
 import SearchForm from "../UI/Search";
 import Model from "../UI/Model";
 
-import TrainingEdit from "./TrainingEdit";
-import TrainingTable from "./TrainingTable";
+import TrainingTable from "./List/TrainingTable";
+import TrainingEdit from "./Edit/TrainingEdit";
 
 export default function TrainingIndex() {
   const [trainings, setTrainings] = useState<TTraining[] | null>(null);
