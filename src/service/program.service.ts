@@ -5,9 +5,8 @@ const BASE_URL = "program/";
 
 const save = async (formData: FormData): Promise<TProgram> => {
   const dto = formDataToProgramDto(formData);
-  return dto?.id
-    ? await apiService.put<TProgramDto, TProgram>(`${BASE_URL}/${dto.id}`, dto)
-    : await apiService.post<TProgramDto, TProgram>(BASE_URL + "create", dto);
+  console.log("dto:", dto)
+  return await apiService.post<TProgramDto, TProgram>(BASE_URL + "save", dto);
 };
 
 const formDataToProgramDto = (formData: FormData): TProgramDto => {

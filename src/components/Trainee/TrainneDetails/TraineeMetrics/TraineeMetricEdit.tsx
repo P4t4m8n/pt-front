@@ -29,7 +29,11 @@ export default function TraineeMetricEdit({
       setMetrics((prev) => {
         const idx = prev.findIndex((m) => m.id === metric?.id);
         if (idx === -1) {
-          return [...prev, metric];
+          //Sort by date in case of new metric
+          // TODO - improve later
+          return [...prev, metric].sort(
+            (a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()
+          );
         }
         prev[idx] = metric;
         return [...prev];
@@ -42,6 +46,7 @@ export default function TraineeMetricEdit({
     }
   };
   const formattedDate = dateUtil.formatDateForInput(metric?.date);
+
   return (
     <div className="w-screen max-w-lg min-w-md bg-black p-4 shadow-border rounded flex h-main-with-gap overflow-auto flex-col gap-4">
       <Button

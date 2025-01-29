@@ -1,9 +1,12 @@
 import { useState } from "react";
-import TraineeProgramEditModel from "./TraineeProgramEdit/TraineeProgramEditModel";
 import TraineeProgramPreview from "./TraineeProgramPreview";
 import { TProgram } from "../../../../types/program.type";
 import { useUser } from "../../../../hooks/useUser";
 import ItemList from "../../../UI/ItemList";
+import Model from "../../../UI/Model";
+import TraineeTableEdit from "../../TraineeTableEdit";
+import { programService } from "../../../../service/program.service";
+import TraineeProgramEditInputs from "./TraineeProgramEdit/TraineeProgramEditInputs";
 
 interface Props {
   programsProps: TProgram[];
@@ -19,15 +22,33 @@ export default function TraineeProgramsIndex({
   const trainerId = user?.trainer?.id;
   return (
     <div className="w-full h-full border p-2 rounded borer-white flex flex-col gap-4 ">
-      <TraineeProgramEditModel
-        setPrograms={setPrograms}
-        traineeId={traineeId}
-        trainerId={trainerId}
+      <Model
+        button={{
+          content: "New",
+          props: {
+            className:
+              "btn btn-primary p-2 shadow-border rounded bg-secondary-light dark:bg-primary-dark h-fit",
+          },
+        }}
+        model={
+          <TraineeTableEdit<TProgram>
+            setItem={setPrograms}
+            save={programService.save}
+          >
+            <TraineeProgramEditInputs
+              trainerId={trainerId}
+              traineeId={traineeId}
+              program={{}}
+            />
+          </TraineeTableEdit>
+        }
       />
       <ItemList
         listStyle="grid gap-2"
         items={programs!}
-        renderItem={(programs) => <TraineeProgramPreview program={programs} />}
+        renderItem={(programs) => (
+          <TraineeProgramPreview program={programs} setPrograms={setPrograms} />
+        )}
       />
     </div>
   );
