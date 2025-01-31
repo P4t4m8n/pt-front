@@ -2,33 +2,45 @@ import {
   TPersonalTraining,
   TPersonalTrainingDto,
 } from "../types/personal-training.type";
-import { TVideo } from "../types/video.type";
 import { apiService } from "./api.service";
 
 const BASE_URL = "personal-training/";
 
-const save = async (
+const create = async (
   formData: FormData,
-  instructionVideos: TVideo[]
+  state: TPersonalTraining
 ): Promise<TPersonalTraining> => {
-  const dto = formDataToDto(formData, instructionVideos);
+  console.log("state:", state);
+  const dto = formDataToDto(formData, state);
 
   return await apiService.post<TPersonalTrainingDto, TPersonalTraining>(
-    BASE_URL + "edit",
+    BASE_URL + "create",
     dto
   );
 };
 
 const formDataToDto = (
   formData: FormData,
-  instructionVideos: TVideo[]
+  personalTrainingState: TPersonalTraining
 ): TPersonalTrainingDto => {
-  const trainingId = formData.get("trainingId") as string;
-  const traineeId = formData.get("traineeId") as string;
+  const trainingId = personalTrainingState.training?.id || "";
+  const traineeId = personalTrainingState?.trainee?.id || "";
   const id = formData.get("id") as string;
   const instructions = formData.get("instructions") as string;
+  const instructionVideos = personalTrainingState.instructionVideos?.map(
+    (v) => {
+      if ((v?.id?.length || 0) < 10) {
+        return v.blob!;
+      }
+      return v;
+    }
+  );
+  const sets = personalTrainingState.sets?.map((s) => ({
+    ...s,
+    id: (s?.id?.length || 0) < 10 ? undefined : s.id, //If id is less than 10 characters, it is a new set. Otherwise, it is an existing set.
+  }));
 
-  return { trainingId, traineeId, id, instructions, instructionVideos };
+  return { trainingId, traineeId, id, instructions, instructionVideos, sets };
 };
 
 const getEmpty = (traineeId: string): TPersonalTraining => {
@@ -40,4 +52,4 @@ const getEmpty = (traineeId: string): TPersonalTraining => {
   };
 };
 
-export const personalTrainingsService = { save, getEmpty };
+export const personalTrainingsService = { create, getEmpty };

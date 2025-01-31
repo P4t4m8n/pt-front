@@ -8,6 +8,7 @@ export type TVideo = TEntity & {
   url: string;
   assetId?: string;
   format?: TVideoFormat;
+  blob?: Blob;
 };
 
 export type TVideoDto = TVideo & {

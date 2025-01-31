@@ -7,8 +7,13 @@ import { icons } from "../UI/Icons/App.icons";
 interface Props {
   video: TVideo;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  onRemoveVideo: (video: TVideo) => void;
 }
-export default function VideoPlayerIndex({ video, setIsOpen }: Props) {
+export default function VideoPlayerIndex({
+  video,
+  setIsOpen,
+  onRemoveVideo,
+}: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -28,10 +33,23 @@ export default function VideoPlayerIndex({ video, setIsOpen }: Props) {
   return (
     <div className="fixed p-4 top-16 left-0 w-full h-[calc(100svh-8rem)] bg-white flex flex-col gap-2">
       <Button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          onRemoveVideo(video);
+        }}
+      >
+        {icons.DeleteSvg({})}
+      </Button>
+      <Button
         styleMode="none"
         styleSize="none"
         className="border rounded p-1 w-8 aspect-square"
-        onClick={() => setIsOpen!(false)}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setIsOpen!(false);
+        }}
       >
         X
       </Button>

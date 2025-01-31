@@ -7,6 +7,7 @@ const blobToPreview = (blob: Blob): TVideo => {
   const video: TVideo = {
     url,
     id: appUtil.generateRandomId(),
+    blob
   };
   return video;
 };

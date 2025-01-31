@@ -24,10 +24,8 @@ export default function TraineePersonalTrainingsEdit({
   setPersonalTrainings,
 }: Props) {
   const [personalTrainingToEdit, setPersonalTrainingToEdit] =
-  useState<TPersonalTraining>(personalTrainingProps);
+    useState<TPersonalTraining>(personalTrainingProps);
   const [trainings, setTrainings] = useState<TTraining[]>([]);
-  console.log("personalTrainingToEdit:", personalTrainingToEdit)
-
   useEffect(() => {
     const loadTrainings = async () => {
       try {
@@ -42,9 +40,9 @@ export default function TraineePersonalTrainingsEdit({
 
   const handleItem = async (formData: FormData) => {
     try {
-      const data = await personalTrainingsService.save(
+      const data = await personalTrainingsService.create(
         formData,
-        personalTrainingToEdit?.instructionVideos || []
+        personalTrainingToEdit
       );
       setPersonalTrainings((prev) => {
         const idx = prev.findIndex((item) => item.id === data.id);
@@ -87,8 +85,6 @@ export default function TraineePersonalTrainingsEdit({
       ),
     }));
   };
-
- 
 
   return (
     <>

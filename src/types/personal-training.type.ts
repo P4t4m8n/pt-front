@@ -3,7 +3,7 @@ import { TSetHistory } from "./set.type";
 import { TTraineeTraining } from "./trainee-training.type";
 import { TTrainee } from "./trainee.type";
 import { TTraining } from "./training.type";
-import { TVideo } from "./video.type";
+import { TVideo, TVideoDto } from "./video.type";
 
 export type TPersonalTraining = TEntity & {
   training?: Omit<TTraining, "defaultSets">;
@@ -15,10 +15,11 @@ export type TPersonalTraining = TEntity & {
 };
 
 export type TPersonalTrainingDto = TEntity &
-  Omit<TPersonalTraining, "training"> & {
+  Omit<TPersonalTraining, "training" | "instructionVideos"> & {
     trainingId: string;
     programId?: string;
     traineeId: string;
+    instructionVideos?: Array<TVideoDto | Blob>;
   };
 
 export type TPersonalTrainingFilter = {
