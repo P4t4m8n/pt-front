@@ -16,7 +16,7 @@ export type TSetHistory = TEntity & {
   date: Date;
   personalTraining?: TPersonalTraining;
   traineeTraining?: TTraineeTraining;
-  setType: SetType;
+  setType: TSetType;
   sets: TSet[];
 };
 export type TSetHistoryDto = Omit<
@@ -32,7 +32,7 @@ export type TSetFilter = {
   reps?: number;
   weight?: number;
   rest?: number;
-  setType?: SetType;
+  setType?: TSetType;
   trainingId?: string;
   traineeSetsId?: string;
   trainerSetsId?: string;
@@ -44,4 +44,4 @@ export const SET_TYPES = [
   "TRAINER",
   "TRAINER_HISTORY",
 ] as const;
-export type SetType = (typeof SET_TYPES)[number];
+export type TSetType = (typeof SET_TYPES)[number];

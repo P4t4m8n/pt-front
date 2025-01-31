@@ -1,14 +1,13 @@
 import { TEntity } from "./app.type";
 
 export type TVideo = TEntity & {
-  duration: number;
-  height: number;
-  width: number;
-  playbackUrl: string;
+  duration?: number;
+  height?: number;
+  width?: number;
+  playbackUrl?: string;
   url: string;
-  assetId: string;
-  format: TVideoFormat;
-  videoOwner: TVideoOwner;
+  assetId?: string;
+  format?: TVideoFormat;
 };
 
 export type TVideoDto = TVideo & {

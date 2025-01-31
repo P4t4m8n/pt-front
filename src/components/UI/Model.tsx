@@ -15,12 +15,16 @@ export default function Model({ button, model }: Props) {
   const modelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useModel(modelRef);
 
-  const modelWithClose = cloneElement(model as React.ReactElement, { setIsOpen });
+  const modelWithClose = cloneElement(model as React.ReactElement, {
+    setIsOpen,
+  });
   return (
     <>
       <Button
         {...button.props}
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
           setIsOpen((prev) => !prev);
         }}
       >

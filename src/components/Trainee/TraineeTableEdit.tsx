@@ -2,19 +2,17 @@ import { useState } from "react";
 
 import Button from "../UI/Button";
 
-interface Props<T extends { id?: string }> {
+interface Props {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  setItem: React.Dispatch<React.SetStateAction<T[]>>;
-  save: (formData: FormData) => Promise<T>;
+  handleItem: (formData: FormData) => Promise<void>;
   children?: React.ReactNode;
 }
 //TODO rename for a better name
-export default function TraineeTableEdit<T extends { id?: string }>({
+export default function TraineeTableEdit({
   children,
   setIsOpen,
-  setItem,
-  save,
-}: Props<T>) {
+  handleItem,
+}: Props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,20 +21,7 @@ export default function TraineeTableEdit<T extends { id?: string }>({
     try {
       setIsLoading(true);
       const formData = new FormData(e?.currentTarget);
-      const _item = await save(formData);
-      if (!_item?.id) {
-        //TODO: handle error
-        console.error(_item);
-        return;
-      }
-      setItem((prev) => {
-        const idx = prev.findIndex((p) => p?.id === _item?.id);
-        if (idx > -1) {
-          prev[idx] = _item;
-          return [...prev];
-        }
-        return [...prev, _item];
-      });
+      await handleItem(formData);
       if (setIsOpen) setIsOpen(false);
     } catch (error) {
       console.error(error);
@@ -46,7 +31,7 @@ export default function TraineeTableEdit<T extends { id?: string }>({
   };
   return (
     <form
-      className="pt-4 flex flex-col gap-4 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black p-4 rounded"
+      className="pt-4 flex flex-col gap-4 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black p-4 rounded h-main-with-gap w-96"
       onSubmit={onSubmit}
     >
       {children}

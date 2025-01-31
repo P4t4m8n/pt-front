@@ -1,7 +1,6 @@
-
-import { TPersonalTraining } from "../../../../types/personal-training.type";
-import ItemList from "../../../UI/ItemList";
-import TraineePersonalTrainingsPreview from "./TraineePersonalTrainingsPreview";
+import { TPersonalTraining } from "../../../../../types/personal-training.type";
+import ItemList from "../../../../UI/ItemList";
+import TraineePersonalTrainingsPreview from "../Preview/TraineePersonalTrainingsPreview";
 
 interface Props {
   personalTrainings: TPersonalTraining[];
@@ -11,7 +10,6 @@ export default function TraineePersonalTrainingsList({
 }: Props) {
   return (
     <ItemList
-      listStyle="w-full h-full border p-2 rounded borer-white"
       items={personalTrainings}
       renderItem={(personalTrainings) => (
         <TraineePersonalTrainingsPreview personalTraining={personalTrainings} />

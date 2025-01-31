@@ -3,7 +3,7 @@ import { TSet, TSetDto } from "./set.type";
 
 export type TTraining = TEntity & {
   name: string;
-  defaultSets: TSet[];
+  defaultSets?: TSet[];
   description?: string;
 };
 

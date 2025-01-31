@@ -1,6 +1,7 @@
 import { TEntity } from "./app.type";
 import { TSetHistory } from "./set.type";
 import { TTraineeTraining } from "./trainee-training.type";
+import { TTrainee } from "./trainee.type";
 import { TTraining } from "./training.type";
 import { TVideo } from "./video.type";
 
@@ -10,6 +11,7 @@ export type TPersonalTraining = TEntity & {
   instructions?: string;
   sets?: TSetHistory[];
   traineeTraining?: TTraineeTraining[];
+  trainee?: TTrainee;
 };
 
 export type TPersonalTrainingDto = TEntity &

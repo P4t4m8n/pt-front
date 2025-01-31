@@ -20,6 +20,16 @@ export default function TraineeProgramsIndex({
   const { user } = useUser();
 
   const trainerId = user?.trainer?.id;
+
+  const onSave = async (formData: FormData) => {
+    try {
+
+      const {} = progrem
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="w-full h-full border p-2 rounded borer-white flex flex-col gap-4 ">
       <Model

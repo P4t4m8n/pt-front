@@ -1,5 +1,5 @@
 interface Props extends React.HTMLProps<HTMLSelectElement> {
-  options: { value: string; name: string }[];
+  options: { value: string; option: React.ReactNode }[];
   children?: React.ReactNode;
 }
 export default function Select({ options, children, ...props }: Props) {
@@ -7,9 +7,9 @@ export default function Select({ options, children, ...props }: Props) {
     <div>
       {children}
       <select {...props}>
-        {options.map(({ value, name }) => (
+        {options.map(({ value, option }) => (
           <option key={value} value={value}>
-            {name.charAt(0).toUpperCase() + name.slice(1)}
+            {option}
           </option>
         ))}
       </select>

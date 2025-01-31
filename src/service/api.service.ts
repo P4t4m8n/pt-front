@@ -13,6 +13,8 @@ const ajax = async <T>(
   method: TMethod = "GET",
   data: unknown = null
 ): Promise<T> => {
+
+  
   const url = `${BASE_URL}${endpoint}`;
   const options: RequestInit = {
     method,
@@ -21,11 +23,11 @@ const ajax = async <T>(
       ...(data instanceof FormData
         ? {}
         : { "Content-Type": "application/json" }),
-    },
-  };
-
-  if (method !== "GET" && data) {
-    if (data instanceof FormData) {
+      },
+    };
+    
+    if (method !== "GET" && data) {
+      if (data instanceof FormData) {
       options.body = data;
     } else {
       options.body = JSON.stringify(data);

@@ -8,7 +8,7 @@ import { setService } from "./set.service";
 
 const BASE_URL = "training/";
 
-const get = async (params: URLSearchParams): Promise<TTraining[]> => {
+const get = async (params?: URLSearchParams): Promise<TTraining[]> => {
   const filter = buildFilter(params);
   const url = BASE_URL + apiService.buildQuery(filter);
   const trainings = await apiService.get<TTraining[]>(url);
@@ -30,10 +30,10 @@ const save = async (FormData: FormData): Promise<TTraining> => {
     : await apiService.post<TTrainingDto, TTraining>(BASE_URL + "edit", dto);
 };
 
-const buildFilter = (params: URLSearchParams): TTrainingFilter => {
+const buildFilter = (params?: URLSearchParams): TTrainingFilter => {
   const filter: TTrainingFilter = {
-    trainerId: params.get("trainerId"),
-    name: params.get("name"),
+    trainerId: params?.get("trainerId"),
+    name: params?.get("name"),
   };
   return filter;
 };
