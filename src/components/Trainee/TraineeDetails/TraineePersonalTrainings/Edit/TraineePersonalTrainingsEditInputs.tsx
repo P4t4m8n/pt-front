@@ -4,7 +4,6 @@ import { TTraining } from "../../../../../types/training.type";
 //Utils
 import { appUtil } from "../../../../../utils/app.util";
 //UI
-import Input from "../../../../UI/Form/Input";
 import Label from "../../../../UI/Form/Label";
 import Select from "../../../../UI/Form/Select";
 import TextArea from "../../../../UI/Form/TextArea";
@@ -19,7 +18,7 @@ export default function TraineePersonalTrainingsEditInputs({
   trainings,
   onChangeTraining,
 }: Props) {
-  const { training, id, instructions, trainee } = personalTraining;
+  const { instructions } = personalTraining;
 
   //TODO: Handle optional values and add icons to the select options
   const options = trainings.map((training) => {
@@ -37,22 +36,6 @@ export default function TraineePersonalTrainingsEditInputs({
         defaultValue={instructions}
         name="instructions"
         placeholder="Instructions"
-      />
-
-      <Input
-        type="text"
-        defaultValue={trainee?.id}
-        name="traineeId"
-        divStyle="hidden"
-        hidden
-      />
-      <Input type="text" defaultValue={id} name="id" divStyle="hidden" hidden />
-      <Input
-        type="text"
-        defaultValue={training?.id}
-        name="trainingId"
-        divStyle="hidden"
-        hidden
       />
     </>
   );

@@ -1,12 +1,12 @@
 //Core
-import { useEffect, useState } from "react";
+import { useState } from "react";
 //Types
 import { TPersonalTraining } from "../../../../../types/personal-training.type";
 import { TVideo } from "../../../../../types/video.type";
-import { TTraining } from "../../../../../types/training.type";
 //Services
 import { personalTrainingsService } from "../../../../../service/personalTrainings.service";
-import { trainingService } from "../../../../../service/training.service";
+//Hooks
+import useTrainingsQuery from "../../../../../hooks/queryHooks/useTrainingsQuery";
 //UI
 import Model from "../../../../UI/Model";
 //Components
@@ -28,29 +28,27 @@ export default function TraineePersonalTrainingsEditIndex({
 }: Props) {
   const [personalTrainingToEdit, setPersonalTrainingToEdit] =
     useState<TPersonalTraining>(personalTrainingProps);
+  console.log("personalTrainingToEdit:", personalTrainingToEdit);
 
-  const [trainings, setTrainings] = useState<TTraining[]>([]);
+  const { isPending, isError, trainings = [], error } = useTrainingsQuery();
 
-  useEffect(() => {
-    const loadTrainings = async () => {
-      try {
-        const trainings = await trainingService.get();
-        setTrainings(trainings);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    loadTrainings();
-  }, []);
+  if (isPending) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {error?.message}</span>;
+  }
 
   const handleItem = async (formData: FormData) => {
     try {
-      const data = await personalTrainingsService.create(
+      const data = await personalTrainingsService.save(
         formData,
         personalTrainingToEdit
       );
       setPersonalTrainings((prev) => {
-        const idx = prev.findIndex((item) => item.id === data.id);
+        const idx = prev.findIndex((item) => item?.id === data?.id);
+        console.log("idx:", idx);
         if (idx < 0) return [...prev, data];
         prev[idx] = data;
         return [...prev];
@@ -72,6 +70,8 @@ export default function TraineePersonalTrainingsEditIndex({
     setPersonalTrainingToEdit((prev) => ({
       ...prev,
       training: trainings[idx],
+      traineeId: personalTrainingToEdit.trainee?.id,
+      trainingId,
     }));
   };
 
@@ -91,18 +91,23 @@ export default function TraineePersonalTrainingsEditIndex({
     }));
   };
 
+  const isNew = personalTrainingToEdit?.id === undefined;
+
   return (
     <>
       <Model
         button={{
-          content: "TTT",
+          content: isNew ? "Add" : "Edit",
           props: {
             className:
               "btn btn-primary p-2 shadow-border rounded bg-secondary-light dark:bg-primary-dark h-fit",
           },
         }}
         model={
-          <TraineeTableEdit handleItem={handleItem}>
+          <TraineeTableEdit
+            handleItem={handleItem}
+            disabled={!personalTrainingToEdit?.setsHistory}
+          >
             <TraineePersonalTrainingsEditInputs
               personalTraining={personalTrainingToEdit}
               trainings={trainings}

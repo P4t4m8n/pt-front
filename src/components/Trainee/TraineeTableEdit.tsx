@@ -7,12 +7,14 @@ interface Props {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   handleItem: (formData: FormData) => Promise<void>;
   children?: React.ReactNode;
+  disabled?: boolean;
 }
 //TODO rename for a better name
 export default function TraineeTableEdit({
   children,
   setIsOpen,
   handleItem,
+  disabled,
 }: Props) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,7 +43,7 @@ export default function TraineeTableEdit({
         styleSize="large"
         type="submit"
         className=""
-        disabled={isLoading}
+        disabled={isLoading || disabled}
       >
         Save
       </Button>

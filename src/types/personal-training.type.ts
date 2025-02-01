@@ -12,6 +12,10 @@ export type TPersonalTraining = TEntity & {
   setsHistory?: TSetHistory[];
   traineeTraining?: TTraineeTraining[];
   trainee?: TTrainee;
+  traineeId?: string;
+  trainingId?: string;
+
+
 };
 
 export type TPersonalTrainingDto = TEntity &

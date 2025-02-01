@@ -8,7 +8,7 @@ import { videoService } from "./video.service";
 
 const BASE_URL = "personal-training/";
 
-const create = async (
+const save = async (
   formData: FormData,
   state: TPersonalTraining
 ): Promise<TPersonalTraining> => {
@@ -18,24 +18,28 @@ const create = async (
 
   const dto = formDataToDto(formData, { ...state, instructionVideos });
 
-  return await apiService.post<TPersonalTrainingDto, TPersonalTraining>(
-    BASE_URL + "create",
-    dto
-  );
+  return !dto?.id
+    ? await apiService.post<TPersonalTrainingDto, TPersonalTraining>(
+        BASE_URL + "create",
+        dto
+      )
+    : await apiService.put<TPersonalTrainingDto, TPersonalTraining>(
+        BASE_URL + "update",
+        dto
+      );
 };
 
 const formDataToDto = (
   formData: FormData,
   personalTrainingState: TPersonalTraining
 ): TPersonalTrainingDto => {
-  const { instructionVideos } = personalTrainingState;
+  console.log("personalTrainingState:", personalTrainingState)
+  const { instructionVideos, trainingId, traineeId, id } =
+    personalTrainingState;
 
-  const trainingId = personalTrainingState.training?.id || "";
-  const traineeId = personalTrainingState?.trainee?.id || "";
-  const id = formData.get("id") as string;
   const instructions = formData.get("instructions") as string;
   const setsHistory = personalTrainingState.setsHistory?.map((s) => {
-   const sets =  s.sets.map((_s) => ({
+    const sets = s?.sets.map((_s) => ({
       ..._s,
       id: (_s?.id?.length || 0) < 10 ? undefined : _s.id,
     }));
@@ -47,8 +51,8 @@ const formDataToDto = (
   });
 
   return {
-    trainingId,
-    traineeId,
+    trainingId: trainingId!,
+    traineeId: traineeId!,
     id,
     instructions,
     instructionVideos,
@@ -58,7 +62,6 @@ const formDataToDto = (
 
 const getEmpty = (traineeId: string): TPersonalTraining => {
   return {
-    id: "",
     instructions: "",
     instructionVideos: [],
     trainee: { id: traineeId },
@@ -76,4 +79,4 @@ const uploadTrainingVideos = async (videos: TVideo[]): Promise<TVideo[]> => {
 
   return await Promise.all(videosBlobsPromises);
 };
-export const personalTrainingsService = { create, getEmpty };
+export const personalTrainingsService = { save, getEmpty };

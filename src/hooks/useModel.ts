@@ -55,16 +55,16 @@ export const useModel = (
     const currentEventListeners = eventListenerRef.current;
     currentEventListeners.click = checkClickOutside;
     currentEventListeners.keydown = checkKeyPress;
-    const { signal, abort } = new AbortController();
+    const controller = new AbortController();
 
     window.addEventListener("mousedown", currentEventListeners.click, {
-      signal,
+      signal: controller.signal,
     });
     window.addEventListener("keydown", currentEventListeners.keydown, {
-      signal,
+      signal: controller.signal,
     });
     return () => {
-      abort();
+      controller.abort();
     };
   }, [open, ref, checkClickOutside, checkKeyPress]);
 

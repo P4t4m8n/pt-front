@@ -28,7 +28,10 @@ export default function TraineePersonalTrainingsIndex({
         personalTrainingProps={emptyPersonalTraining}
         setPersonalTrainings={setPersonalTrainings}
       />
-      <TraineePersonalTrainingsList personalTrainings={personalTrainings} />
+      <TraineePersonalTrainingsList
+        personalTrainings={personalTrainings}
+        setPersonalTrainings={setPersonalTrainings}
+      />
     </div>
   );
 }
