@@ -1,14 +1,19 @@
+//Core
 import { useState } from "react";
-import { setService } from "../../../../../service/set.service";
-import { setHistoryService } from "../../../../../service/setHistory.service";
+//Types
 import { TSetHistory } from "../../../../../types/set.type";
 import { TTraining } from "../../../../../types/training.type";
+import { TPersonalTraining } from "../../../../../types/personal-training.type";
+//Services
+import { setService } from "../../../../../service/set.service";
+import { setHistoryService } from "../../../../../service/setHistory.service";
+//UI
 import Button from "../../../../UI/Button";
 import { icons } from "../../../../UI/Icons/App.icons";
 import ItemList from "../../../../UI/ItemList";
+//Components
 import TrainingEditSetsItem from "../../../../Training/Edit/TrainingEditSetsItem";
 import SetHistoryPreview from "../../../../SetHistory/Preview/SetHistoryPreview";
-import { TPersonalTraining } from "../../../../../types/personal-training.type";
 
 interface Props {
   setsHistory: TSetHistory[];
@@ -22,7 +27,9 @@ export default function TraineePersonalTrainingsEditSets({
   training,
   setPersonalTrainingToEdit,
 }: Props) {
+  console.log("setsHistory:", setsHistory);
   const [setsToEdit, setSetsToEdit] = useState<TSetHistory | null>(null);
+  console.log("setsToEdit:", setsToEdit);
   console.log("setsToEdit:", setsToEdit);
 
   const onAddSet = (e: React.MouseEvent) => {
@@ -79,20 +86,23 @@ export default function TraineePersonalTrainingsEditSets({
     setPersonalTrainingToEdit((prev) => {
       if (!prev) return prev;
       if (!setsToEdit) return prev;
-      if (!prev?.sets) {
-        return { ...prev, sets: [setsToEdit] };
+      if (!prev?.setsHistory) {
+        return { ...prev, setsHistory: [setsToEdit] };
       }
-      const idx = prev.sets.findIndex((s) => {
+      const idx = prev.setsHistory.findIndex((s) => {
         console.log("s:", s.id);
         console.log("setsToEdit:", setsToEdit.id);
         return s.id === setsToEdit.id;
       });
 
       if (idx < 0) {
-        return { ...prev, sets: [...(prev.sets || []), setsToEdit] };
+        return {
+          ...prev,
+          setsHistory: [...(prev.setsHistory || []), setsToEdit],
+        };
       }
 
-      prev.sets![idx] = setsToEdit;
+      prev.setsHistory![idx] = setsToEdit;
       return { ...prev };
     });
     setSetsToEdit(null);
@@ -104,6 +114,7 @@ export default function TraineePersonalTrainingsEditSets({
     const setHistory = setHistoryService.getEmpty("TRAINER", training!);
     setSetsToEdit(setHistory);
   };
+
   return (
     <div>
       <Button className="border rounded-full" onClick={(e) => addSetHistory(e)}>

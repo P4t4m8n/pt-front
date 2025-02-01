@@ -1,8 +1,12 @@
-import { TTraineeMetrics } from "../../../../types/trainee.type";
-import { dateUtil } from "../../../../utils/date.util";
-import Model from "../../../UI/Model";
-import TraineeMetricEdit from "./TraineeMetricEdit";
-import TraineeMetricsDetails from "./TraineeMetricsDetails";
+//Types
+import { TTraineeMetrics } from "../../../../../types/trainee.type";
+//Utils
+import { dateUtil } from "../../../../../utils/date.util";
+//UI
+import Model from "../../../../UI/Model";
+//Components
+import TraineeMetricsDetails from "../Details/TraineeMetricsDetails";
+import TraineeMetricEdit from "../Edit/TraineeMetricEditIndex";
 
 interface Props {
   metric: TTraineeMetrics;
@@ -29,21 +33,10 @@ export default function TraineeMetricsPreview({
           }}
           model={<TraineeMetricsDetails metric={metric} />}
         />
-        <Model
-          button={{
-            content: "Edit",
-            props: {
-              className:
-                "btn btn-primary p-2 shadow-border rounded bg-secondary-light dark:bg-primary-dark h-fit",
-            },
-          }}
-          model={
-            <TraineeMetricEdit
-              metric={metric}
-              traineeId={traineeId}
-              setMetrics={setMetrics}
-            />
-          }
+        <TraineeMetricEdit
+          metric={metric}
+          traineeId={traineeId}
+          setMetrics={setMetrics}
         />
       </span>
     </li>

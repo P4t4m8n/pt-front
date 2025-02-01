@@ -1,5 +1,8 @@
+//Types
 import { TPersonalTraining } from "../../../../../types/personal-training.type";
+//UI
 import ItemList from "../../../../UI/ItemList";
+//Components
 import TraineePersonalTrainingsPreview from "../Preview/TraineePersonalTrainingsPreview";
 
 interface Props {

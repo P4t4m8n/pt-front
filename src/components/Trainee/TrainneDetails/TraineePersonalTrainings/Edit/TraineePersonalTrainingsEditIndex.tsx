@@ -1,17 +1,20 @@
+//Core
 import { useEffect, useState } from "react";
+//Types
 import { TPersonalTraining } from "../../../../../types/personal-training.type";
-import { personalTrainingsService } from "../../../../../service/personalTrainings.service";
-import Model from "../../../../UI/Model";
-import TraineeTableEdit from "../../../TraineeTableEdit";
-import { TTraining } from "../../../../../types/training.type";
-import { trainingService } from "../../../../../service/training.service";
-import TraineePersonalTrainingsEditInputs from "./TraineePersonalTrainingsEditInputs";
-import VideoRecorderIndex from "../../../../VideoRecorder/VideoRecorderIndex";
 import { TVideo } from "../../../../../types/video.type";
-
+import { TTraining } from "../../../../../types/training.type";
+//Services
+import { personalTrainingsService } from "../../../../../service/personalTrainings.service";
+import { trainingService } from "../../../../../service/training.service";
+//UI
+import Model from "../../../../UI/Model";
+//Components
+import VideoRecorderIndex from "../../../../VideoRecorder/VideoRecorderIndex";
+import TraineePersonalTrainingsEditInputs from "./TraineePersonalTrainingsEditInputs";
 import TraineePersonalTrainingsEditVideos from "./TraineePersonalTrainingsEditVideos";
-// import { TSetHistory } from "../../../../../types/set.type";
 import TraineePersonalTrainingsEditSets from "./TraineePersonalTrainingsEditSets";
+import TraineeTableEdit from "../../../TraineeTableEdit";
 
 interface Props {
   personalTrainingProps: TPersonalTraining;
@@ -19,13 +22,15 @@ interface Props {
     React.SetStateAction<TPersonalTraining[]>
   >;
 }
-export default function TraineePersonalTrainingsEdit({
+export default function TraineePersonalTrainingsEditIndex({
   personalTrainingProps,
   setPersonalTrainings,
 }: Props) {
   const [personalTrainingToEdit, setPersonalTrainingToEdit] =
     useState<TPersonalTraining>(personalTrainingProps);
+
   const [trainings, setTrainings] = useState<TTraining[]>([]);
+
   useEffect(() => {
     const loadTrainings = async () => {
       try {
@@ -110,7 +115,7 @@ export default function TraineePersonalTrainingsEdit({
             <VideoRecorderIndex addVideosURL={onAddVideo} />
             {personalTrainingToEdit.training && (
               <TraineePersonalTrainingsEditSets
-                setsHistory={personalTrainingToEdit?.sets || []}
+                setsHistory={personalTrainingToEdit?.setsHistory || []}
                 training={personalTrainingToEdit?.training}
                 setPersonalTrainingToEdit={setPersonalTrainingToEdit}
               />

@@ -1,18 +1,21 @@
-import { programService } from "../../../../service/program.service";
+//Types
 import { TProgram } from "../../../../types/program.type";
+//Service
 import { dateUtil } from "../../../../utils/date.util";
+//UI
 import { icons } from "../../../UI/Icons/App.icons";
 import NavLinkCmp from "../../../UI/Link";
 import Model from "../../../UI/Model";
+//Components
 import TraineeTableEdit from "../../TraineeTableEdit";
 import TraineeProgramEditInputs from "./TraineeProgramEdit/TraineeProgramEditInputs";
 
 interface Props {
   program: TProgram;
-  setPrograms: React.Dispatch<React.SetStateAction<TProgram[]>>;
+  handleItem: (formData: FormData) => Promise<void>;
 }
 
-export default function TraineeProgramPreview({ program, setPrograms }: Props) {
+export default function TraineeProgramPreview({ program, handleItem }: Props) {
   const { id, startDate, endDate, isActive, name } = program;
   const url = `/program/${id}`;
 
@@ -41,10 +44,7 @@ export default function TraineeProgramPreview({ program, setPrograms }: Props) {
             },
           }}
           model={
-            <TraineeTableEdit<TProgram>
-              setItem={setPrograms}
-              save={programService.save}
-            >
+            <TraineeTableEdit handleItem={handleItem}>
               <TraineeProgramEditInputs
                 trainerId={program.trainer?.id}
                 traineeId={program?.trainee?.id}

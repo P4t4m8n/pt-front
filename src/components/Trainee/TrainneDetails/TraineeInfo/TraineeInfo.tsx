@@ -1,4 +1,6 @@
+//Types
 import { TUser } from "../../../../types/user.type";
+//UI
 import { icons } from "../../../UI/Icons/App.icons";
 import Image from "../../../UI/Image";
 

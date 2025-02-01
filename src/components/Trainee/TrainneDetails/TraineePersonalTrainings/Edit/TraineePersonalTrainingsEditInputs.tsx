@@ -1,6 +1,9 @@
+//Types
 import { TPersonalTraining } from "../../../../../types/personal-training.type";
 import { TTraining } from "../../../../../types/training.type";
+//Utils
 import { appUtil } from "../../../../../utils/app.util";
+//UI
 import Input from "../../../../UI/Form/Input";
 import Label from "../../../../UI/Form/Label";
 import Select from "../../../../UI/Form/Select";

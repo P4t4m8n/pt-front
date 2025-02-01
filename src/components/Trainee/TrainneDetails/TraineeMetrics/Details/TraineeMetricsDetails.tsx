@@ -1,12 +1,13 @@
-import { TTraineeMetrics } from "../../../../types/trainee.type";
-import { dateUtil } from "../../../../utils/date.util";
-
+//Types
+import { TTraineeMetrics } from "../../../../../types/trainee.type";
+//Utils
+import { dateUtil } from "../../../../../utils/date.util";
 
 interface Props {
   metric: TTraineeMetrics;
-  modelRef?: React.RefObject<HTMLUListElement>
+  modelRef?: React.RefObject<HTMLUListElement>;
 }
-export default function TraineeMetricsDetails({ metric,modelRef }: Props) {
+export default function TraineeMetricsDetails({ metric, modelRef }: Props) {
   const {
     heartRate,
     height,
@@ -18,7 +19,7 @@ export default function TraineeMetricsDetails({ metric,modelRef }: Props) {
   } = metric;
   const fixedDate = dateUtil.formatDateForPreview(date);
 
-  const style = modelRef? "bg-black p-4 px-8 rounded grid gap-4":""
+  const style = modelRef ? "bg-black p-4 px-8 rounded grid gap-4" : "";
 
   return (
     <ul ref={modelRef} className={style}>

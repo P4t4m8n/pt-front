@@ -1,8 +1,12 @@
+//Core
 import { useState } from "react";
+//Types
 import { TPersonalTraining } from "../../../../types/personal-training.type";
-import TraineePersonalTrainingsList from "./List/TraineePersonalTrainingsList";
-import TraineePersonalTrainingsEdit from "./Edit/TraineePersonalTrainingsEdit";
+//Services
 import { personalTrainingsService } from "../../../../service/personalTrainings.service";
+//Components
+import TraineePersonalTrainingsList from "./List/TraineePersonalTrainingsList";
+import TraineePersonalTrainingsEditIndex from "./Edit/TraineePersonalTrainingsEditIndex";
 
 interface Props {
   personalTrainingsProps: TPersonalTraining[];
@@ -20,7 +24,7 @@ export default function TraineePersonalTrainingsIndex({
     personalTrainingsService.getEmpty(traineeId);
   return (
     <div className="w-full h-full border p-2 rounded borer-white">
-      <TraineePersonalTrainingsEdit
+      <TraineePersonalTrainingsEditIndex
         personalTrainingProps={emptyPersonalTraining}
         setPersonalTrainings={setPersonalTrainings}
       />

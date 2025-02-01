@@ -1,7 +1,10 @@
-import TraineeMetricsDetails from "../TraineeMetricsDetails";
+//Types
 import { TTraineeMetrics } from "../../../../../types/trainee.type";
+//UI
 import Model from "../../../../UI/Model";
-import TraineeMetricEdit from "../TraineeMetricEdit";
+//Components
+import TraineeMetricsDetails from "../Details/TraineeMetricsDetails";
+import TraineeMetricEdit from "../Edit/TraineeMetricEditIndex";
 
 interface Props {
   metric?: TTraineeMetrics;

@@ -1,4 +1,5 @@
-import { TPersonalTraining } from "../../../../types/personal-training.type";
+//Types
+import { TPersonalTraining } from "../../../../../types/personal-training.type";
 
 interface Props {
   personalTraining: TPersonalTraining;

@@ -1,4 +1,6 @@
+//Types
 import { DAY_OF_WEEK, TDaysOfWeek } from "../../../../../types/program.type";
+//UI
 import Input from "../../../../UI/Form/Input";
 import Label from "../../../../UI/Form/Label";
 

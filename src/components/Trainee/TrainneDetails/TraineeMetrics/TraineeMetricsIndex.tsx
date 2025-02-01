@@ -1,13 +1,13 @@
+//Core
 import { useState } from "react";
-
+//Types
 import { TTraineeMetrics } from "../../../../types/trainee.type";
-
+//Components
 import TraineeMetricsLatest from "./TraineeMetricsLatest/TraineeMetricsLatest";
-import TraineeMetricsPreview from "./TraineeMetricsPreview";
-import TraineeMetricEdit from "./TraineeMetricEdit";
-
+import TraineeMetricsPreview from "./Preview/TraineeMetricsPreview";
+import TraineeMetricEdit from "./Edit/TraineeMetricEditIndex";
+//UI
 import ItemList from "../../../UI/ItemList";
-import Model from "../../../UI/Model";
 
 interface Props {
   metricsProps?: TTraineeMetrics[];
@@ -28,18 +28,8 @@ export default function TraineeMetricsIndex({
           setMetrics={setMetrics}
           traineeId={traineeId}
         />
-        <Model
-          button={{
-            content: "New",
-            props: {
-              className:
-                "btn btn-primary p-2 shadow-border rounded bg-secondary-light dark:bg-primary-dark h-fit",
-            },
-          }}
-          model={
-            <TraineeMetricEdit traineeId={traineeId} setMetrics={setMetrics} />
-          }
-        />
+
+        <TraineeMetricEdit setMetrics={setMetrics} traineeId={traineeId} />
       </div>
       <ItemList
         listStyle="flex flex-col gap-1 h-[calc(100%-12rem)] overflow-y-auto"

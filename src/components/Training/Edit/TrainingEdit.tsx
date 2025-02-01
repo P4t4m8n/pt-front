@@ -50,7 +50,7 @@ export default function TrainingEdit({
     const emptySet = setService.getEmpty();
     setTrainingToEdit((prev) => ({
       ...prev!,
-      defaultSets: [...prev!.defaultSets, emptySet],
+      defaultSets: [...(prev?.defaultSets || []), emptySet],
     }));
   };
 

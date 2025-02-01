@@ -1,7 +1,9 @@
+//Types
 import { TVideo } from "../../../../../types/video.type";
-
+//UI
 import ItemList from "../../../../UI/ItemList";
 import Model from "../../../../UI/Model";
+//Components
 import VideoPlayerIndex from "../../../../VideoPlayer/VideoPlayerIndex";
 
 interface Props {

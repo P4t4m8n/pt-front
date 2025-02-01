@@ -1,4 +1,6 @@
+//Types
 import { TTrainee } from "../../../types/trainee.type";
+//Components
 import TraineeInfo from "./TraineeInfo/TraineeInfo";
 import TraineeMetricsIndex from "./TraineeMetrics/TraineeMetricsIndex";
 import TraineePersonalTrainingsIndex from "./TraineePersonalTrainings/TraineePersonalTrainingsIndex";

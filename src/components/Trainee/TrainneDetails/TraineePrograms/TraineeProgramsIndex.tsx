@@ -1,11 +1,17 @@
+//Core
 import { useState } from "react";
-import TraineeProgramPreview from "./TraineeProgramPreview";
+//Types
 import { TProgram } from "../../../../types/program.type";
+//Services
+import { programService } from "../../../../service/program.service";
+//Hooks
 import { useUser } from "../../../../hooks/useUser";
+//UI
 import ItemList from "../../../UI/ItemList";
 import Model from "../../../UI/Model";
+//Components
 import TraineeTableEdit from "../../TraineeTableEdit";
-import { programService } from "../../../../service/program.service";
+import TraineeProgramPreview from "./TraineeProgramPreview";
 import TraineeProgramEditInputs from "./TraineeProgramEdit/TraineeProgramEditInputs";
 
 interface Props {
@@ -21,10 +27,15 @@ export default function TraineeProgramsIndex({
 
   const trainerId = user?.trainer?.id;
 
-  const onSave = async (formData: FormData) => {
+  const handleItem = async (formData: FormData) => {
     try {
-
-      const {} = progrem
+      const _program = await programService.save(formData);
+      setPrograms((prev) => {
+        const idx = prev.findIndex((item) => item.id === _program.id);
+        if (idx < 0) return [...prev, _program];
+        prev[idx] = _program;
+        return [...prev];
+      });
     } catch (error) {
       console.error(error);
     }
@@ -41,10 +52,7 @@ export default function TraineeProgramsIndex({
           },
         }}
         model={
-          <TraineeTableEdit<TProgram>
-            setItem={setPrograms}
-            save={programService.save}
-          >
+          <TraineeTableEdit handleItem={handleItem}>
             <TraineeProgramEditInputs
               trainerId={trainerId}
               traineeId={traineeId}
@@ -57,7 +65,7 @@ export default function TraineeProgramsIndex({
         listStyle="grid gap-2"
         items={programs!}
         renderItem={(programs) => (
-          <TraineeProgramPreview program={programs} setPrograms={setPrograms} />
+          <TraineeProgramPreview program={programs} handleItem={handleItem} />
         )}
       />
     </div>

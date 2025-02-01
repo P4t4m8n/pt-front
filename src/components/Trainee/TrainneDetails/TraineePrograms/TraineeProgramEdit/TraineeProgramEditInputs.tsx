@@ -1,5 +1,8 @@
+//Types
 import { TProgram } from "../../../../../types/program.type";
+//UI
 import Input from "../../../../UI/Form/Input";
+//Components
 import ProgramEditDates from "./ProgramEditDates";
 import ProgramEditDays from "./ProgramEditDays";
 
