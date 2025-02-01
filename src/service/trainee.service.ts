@@ -9,10 +9,15 @@ const get = async (filter: TTraineeFilter) => {
   return trainees;
 };
 
-const getById = async (id: string): Promise<TTrainee> => {
+const getById = async (id?: string): Promise<TTrainee> => {
+  if (!id) {
+    throw new Error("Id is required");
+  }
   const trainee = await apiService.get<TTrainee>(BASE_URL + id);
   return trainee;
 };
+
+
 
 const create = async (formData: FormData): Promise<string> => {
   const dto = formDataToDto(formData);

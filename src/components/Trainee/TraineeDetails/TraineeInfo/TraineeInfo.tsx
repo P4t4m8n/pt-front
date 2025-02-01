@@ -8,7 +8,6 @@ interface Props {
   user?: TUser | null;
 }
 export default function TraineeInfo({ user }: Props) {
-  //TODO handle user undefined
   const { firstName, lastName, email, phone, imgUrl } = user!;
 
   return (

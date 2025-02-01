@@ -15,10 +15,8 @@ const create = async (
   const instructionVideos = await uploadTrainingVideos(
     state.instructionVideos || []
   );
-  console.log("instructionVideos:", instructionVideos);
 
   const dto = formDataToDto(formData, { ...state, instructionVideos });
-  console.log("dto:", dto);
 
   return await apiService.post<TPersonalTrainingDto, TPersonalTraining>(
     BASE_URL + "create",

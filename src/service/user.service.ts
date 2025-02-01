@@ -9,6 +9,20 @@ const get = async (filter: TUserFilter): Promise<TUser[]> => {
   return users;
 };
 
+const getById = async (id: string): Promise<TUser> => {
+  const user = await apiService.get<TUser>(`${BASE_URL}/${id}`);
+  if (!user) throw new Error("User not found");
+  return user;
+};
+
+const getByTraineeId = async (traineeId?: string): Promise<TUser> => {
+  if (!traineeId) throw new Error("TraineeId is required");
+  const user = await apiService.get<TUser>(`${BASE_URL}/trainee/${traineeId}`);
+  return user;
+};
+
 export const userService = {
   get,
+  getById,
+  getByTraineeId,
 };

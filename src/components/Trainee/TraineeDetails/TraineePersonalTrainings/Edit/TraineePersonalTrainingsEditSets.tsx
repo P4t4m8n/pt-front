@@ -27,10 +27,8 @@ export default function TraineePersonalTrainingsEditSets({
   training,
   setPersonalTrainingToEdit,
 }: Props) {
-  console.log("setsHistory:", setsHistory);
   const [setsToEdit, setSetsToEdit] = useState<TSetHistory | null>(null);
-  console.log("setsToEdit:", setsToEdit);
-  console.log("setsToEdit:", setsToEdit);
+
 
   const onAddSet = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -90,8 +88,7 @@ export default function TraineePersonalTrainingsEditSets({
         return { ...prev, setsHistory: [setsToEdit] };
       }
       const idx = prev.setsHistory.findIndex((s) => {
-        console.log("s:", s.id);
-        console.log("setsToEdit:", setsToEdit.id);
+       
         return s.id === setsToEdit.id;
       });
 

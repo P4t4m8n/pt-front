@@ -8,6 +8,7 @@ import TraineeProgramsIndex from "./TraineePrograms/TraineeProgramsIndex";
 
 interface Props {
   trainee: TTrainee;
+  traineeId?: string;
 }
 export default function TraineeDetailsIndex({ trainee }: Props) {
   const { user, metrics, programs, trainings, id } = trainee;
