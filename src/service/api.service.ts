@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:3030/api/";
+import { ValidationError } from "../utils/ValidationError";
+
+const BASE_URL = "http://localhost:3030/api/v1/";
 type TApiService = {
   get<T>(endpoint: string, data?: unknown): Promise<T>;
   post<T, R>(endpoint: string, data?: T): Promise<R>;
@@ -13,8 +15,6 @@ const ajax = async <T>(
   method: TMethod = "GET",
   data: unknown = null
 ): Promise<T> => {
-
-  
   const url = `${BASE_URL}${endpoint}`;
   const options: RequestInit = {
     method,
@@ -23,11 +23,11 @@ const ajax = async <T>(
       ...(data instanceof FormData
         ? {}
         : { "Content-Type": "application/json" }),
-      },
-    };
-    
-    if (method !== "GET" && data) {
-      if (data instanceof FormData) {
+    },
+  };
+
+  if (method !== "GET" && data) {
+    if (data instanceof FormData) {
       options.body = data;
     } else {
       options.body = JSON.stringify(data);
@@ -38,6 +38,15 @@ const ajax = async <T>(
   }
 
   const res = await fetch(url, options);
+
+  if (!res.ok) {
+    const error = await res.json();
+    if (res.status === 401) {
+      throw ValidationError.create("Validation Error", error);
+    }
+
+    throw new Error(error.message);
+  }
 
   return (await res.json()) as T;
 };

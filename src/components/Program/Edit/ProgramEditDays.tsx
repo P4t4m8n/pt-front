@@ -1,8 +1,8 @@
 //Types
-import { DAY_OF_WEEK, TDaysOfWeek } from "../../../../../types/program.type";
+import { DAY_OF_WEEK, TDaysOfWeek } from "../../../types/program.type";
 //UI
-import Input from "../../../../UI/Form/Input";
-import Label from "../../../../UI/Form/Label";
+import Input from "../../UI/Form/Input";
+import Label from "../../UI/Form/Label";
 
 interface Props {
   days: TDaysOfWeek[];

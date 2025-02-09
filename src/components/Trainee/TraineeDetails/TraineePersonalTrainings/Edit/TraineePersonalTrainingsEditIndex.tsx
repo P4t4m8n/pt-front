@@ -28,7 +28,6 @@ export default function TraineePersonalTrainingsEditIndex({
 }: Props) {
   const [personalTrainingToEdit, setPersonalTrainingToEdit] =
     useState<TPersonalTraining>(personalTrainingProps);
-  console.log("personalTrainingToEdit:", personalTrainingToEdit);
 
   const { isPending, isError, trainings = [], error } = useTrainingsQuery();
 
@@ -48,7 +47,6 @@ export default function TraineePersonalTrainingsEditIndex({
       );
       setPersonalTrainings((prev) => {
         const idx = prev.findIndex((item) => item?.id === data?.id);
-        console.log("idx:", idx);
         if (idx < 0) return [...prev, data];
         prev[idx] = data;
         return [...prev];

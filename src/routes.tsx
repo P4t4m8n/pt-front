@@ -1,12 +1,11 @@
+//Core
 import { Route } from "react-router";
-import Home from "./pages/Home";
+//Types
 import { RouteConfig } from "./types/app.type";
+//Pages
+import Home from "./pages/Home";
 import AuthIndex from "./pages/AuthIndex";
-import TrainerIndex from "./pages/TrainerIndex";
-import TraineesIndex from "./components/Trainer/Trainnes/TraineesIndex";
-import TrainerSearchIndex from "./components/Trainer/Search/TrainerSearchIndex";
-import TrainerTraineeDetails from "./components/Trainer/Trainnes/TrainerTraineeDetails";
-import TrainingIndex from "./components/Training/TrainingIndex";
+import ProgramsIndex from "./pages/ProgramsIndex";
 
 export const renderRoutes = (routes: RouteConfig[]) => {
   return routes.map((route) => (
@@ -26,25 +25,29 @@ export const ROUTES: RouteConfig[] = [
     element: <AuthIndex />,
   },
   {
-    path: "/trainer",
-    element: <TrainerIndex />,
-    children: [
-      {
-        path: "training",
-        element: <TrainingIndex />,
-      },
-      {
-        path: "trainees",
-        element: <TraineesIndex />,
-      },
-      {
-        path: "trainee/:id",
-        element: <TrainerTraineeDetails />,
-      },
-      {
-        path: "search",
-        element: <TrainerSearchIndex />,
-      },
-    ],
+    path: "/programs/",
+    element: <ProgramsIndex />,
   },
+  // {
+  //   path: "/trainer",
+  //   element: <TrainerIndex />,
+  //   children: [
+  //     {
+  //       path: "training",
+  //       element: <TrainingIndex />,
+  //     },
+  //     {
+  //       path: "trainees",
+  //       element: <TraineesIndex />,
+  //     },
+  //     {
+  //       path: "trainee/:id",
+  //       element: <TrainerTraineeDetails />,
+  //     },
+  //     {
+  //       path: "search",
+  //       element: <TrainerSearchIndex />,
+  //     },
+  //   ],
+  // },
 ];

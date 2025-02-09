@@ -1,21 +1,15 @@
 //Types
-import { TProgram } from "../../../../../types/program.type";
+import { TProgram } from "../../../types/program.type";
 //UI
-import Input from "../../../../UI/Form/Input";
+import Input from "../../UI/Form/Input";
 //Components
 import ProgramEditDates from "./ProgramEditDates";
 import ProgramEditDays from "./ProgramEditDays";
 
 interface Props {
   program?: TProgram;
-  trainerId?: string;
-  traineeId?: string;
 }
-export default function TraineeProgramEditInputs({
-  program,
-  trainerId,
-  traineeId,
-}: Props) {
+export default function ProgramEditInputs({ program }: Props) {
   return (
     <>
       <Input
@@ -32,20 +26,7 @@ export default function TraineeProgramEditInputs({
         divStyle="hidden"
         hidden
       />
-      <Input
-        type="text"
-        defaultValue={trainerId}
-        name="trainerId"
-        divStyle="hidden"
-        hidden
-      />
-      <Input
-        type="text"
-        defaultValue={traineeId}
-        name="traineeId"
-        divStyle="hidden"
-        hidden
-      />
+
       <ProgramEditDays days={program?.days || []} />
       <ProgramEditDates
         startDate={program?.startDate as string}

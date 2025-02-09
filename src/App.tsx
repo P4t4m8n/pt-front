@@ -5,12 +5,13 @@ import Header from "./components/Header/Header";
 import AppNav from "./components/AppNav/AppNav";
 
 import "./index.css";
-
+import Toast from "./components/UI/Toast/Toast";
 
 export default function App() {
   const routes = renderRoutes(ROUTES);
   return (
     <>
+        <Toast />
       <BrowserRouter>
         <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
           <Header />

@@ -33,7 +33,6 @@ const formDataToDto = (
   formData: FormData,
   personalTrainingState: TPersonalTraining
 ): TPersonalTrainingDto => {
-  console.log("personalTrainingState:", personalTrainingState)
   const { instructionVideos, trainingId, traineeId, id } =
     personalTrainingState;
 

@@ -1,23 +1,43 @@
+//Types
+import { TAuthSignInDto, TAuthSignUpDto } from "../../types/auth.type";
+//UI
 import Button from "../UI/Button";
 import Input from "../UI/Form/Input";
 import Label from "../UI/Form/Label";
+import Loader from "../UI/Loader";
 
 interface Props {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   isLogin: boolean;
   isLoading: boolean;
+  errors?: Record<keyof TAuthSignInDto | keyof TAuthSignUpDto, string> | null;
 }
-export default function EmailForm({ onSubmit, isLogin, isLoading }: Props) {
+export default function EmailForm({
+  onSubmit,
+  isLogin,
+  isLoading,
+  errors,
+}: Props) {
   const inputs = isLogin ? LOGIN_INPUTS : SIGN_UP_INPUTS;
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-4">
+    <form
+      onSubmit={onSubmit}
+      className="flex flex-col gap-4 transition-all duration-300 h-fit"
+    >
       {inputs.map((input) => (
         <Input key={input.name} {...input} id={input.name}>
+          <Label className=" block font-semibold text-sm" htmlFor={input.name}>
+            {input.name.charAt(0).toLocaleUpperCase() + input.name.slice(1)}
+          </Label>
           <Label
-            className="pb-2 block font-semibold text-sm"
+            className=" pb-1 ps-1.5 block font-semibold text-xs text-red-500 min-h-6"
             htmlFor={input.name}
           >
-            {input.name.charAt(0).toLocaleUpperCase() + input.name.slice(1)}
+            {
+              errors?.[
+                input.name as keyof TAuthSignInDto | keyof TAuthSignUpDto
+              ]
+            }
           </Label>
         </Input>
       ))}
@@ -25,11 +45,11 @@ export default function EmailForm({ onSubmit, isLogin, isLoading }: Props) {
       <Button
         styleMode="none"
         styleSize="none"
-        className="w-full text-center bg-accent-light text-text-dark dark:text-text-light p-2 rounded font-semibold text-sm "
+        className="w-full h-10 text-center bg-accent-light text-text-dark dark:text-text-light p-2 rounded font-semibold text-sm "
         type="submit"
         disabled={isLoading}
       >
-        {isLogin ? "Login" : "Sign-Up"}
+        {isLoading ? <Loader /> : isLogin ? "Login" : "Sign-Up"}
       </Button>
     </form>
   );

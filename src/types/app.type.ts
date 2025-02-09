@@ -24,3 +24,10 @@ export type RouteConfig = {
   element: ReactNode;
   children?: RouteConfig[];
 };
+
+export interface TToast {
+  id: number;
+  message: string;
+  type: TToastType;
+}
+export type TToastType = "success" | "error" | "warning" | "info";

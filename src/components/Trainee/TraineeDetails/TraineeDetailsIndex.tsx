@@ -4,7 +4,7 @@ import { TTrainee } from "../../../types/trainee.type";
 import TraineeInfo from "./TraineeInfo/TraineeInfo";
 import TraineeMetricsIndex from "./TraineeMetrics/TraineeMetricsIndex";
 import TraineePersonalTrainingsIndex from "./TraineePersonalTrainings/TraineePersonalTrainingsIndex";
-import TraineeProgramsIndex from "./TraineePrograms/TraineeProgramsIndex";
+import TraineeProgramsIndex from "./TraineeProgramsIndex";
 
 interface Props {
   trainee: TTrainee;

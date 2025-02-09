@@ -1,21 +1,21 @@
 //Types
-import { TProgram } from "../../../../types/program.type";
+import { TProgram } from "../../../types/program.type";
 //Service
-import { dateUtil } from "../../../../utils/date.util";
+import { dateUtil } from "../../../utils/date.util";
 //UI
-import { icons } from "../../../UI/Icons/App.icons";
-import NavLinkCmp from "../../../UI/Link";
-import Model from "../../../UI/Model";
+import { icons } from "../../UI/Icons/App.icons";
+import NavLinkCmp from "../../UI/Link";
+import Model from "../../UI/Model";
 //Components
-import TraineeTableEdit from "../../TraineeTableEdit";
-import TraineeProgramEditInputs from "./TraineeProgramEdit/TraineeProgramEditInputs";
+import TraineeTableEdit from "../../Trainee/TraineeTableEdit";
+import TraineeProgramEditInputs from "../Edit/ProgramEditInputs";
 
 interface Props {
   program: TProgram;
   handleItem: (formData: FormData) => Promise<void>;
 }
 
-export default function TraineeProgramPreview({ program, handleItem }: Props) {
+export default function ProgramPreview({ program, handleItem }: Props) {
   const { id, startDate, endDate, isActive, name } = program;
   const url = `/program/${id}`;
 
@@ -45,11 +45,7 @@ export default function TraineeProgramPreview({ program, handleItem }: Props) {
           }}
           model={
             <TraineeTableEdit handleItem={handleItem}>
-              <TraineeProgramEditInputs
-                trainerId={program.trainer?.id}
-                traineeId={program?.trainee?.id}
-                program={program}
-              />
+              <TraineeProgramEditInputs program={program} />
             </TraineeTableEdit>
           }
         />

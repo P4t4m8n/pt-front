@@ -18,18 +18,18 @@ const NAV_LINKS: { to: string; icon: JSX.Element; text: string }[] = [
     icon: icons.HomeSvg(),
   },
   {
-    text: "Trainee",
-    to: "/trainee",
+    text: "Programs",
+    to: "/programs",
     icon: icons.TraineeSvg(),
   },
   {
-    text: "Profile",
-    to: "/profile",
+    text: "Trainings",
+    to: "/trainings",
     icon: icons.ProfileSvg(),
   },
   {
-    text: "Trainer",
-    to: "/trainer",
+    text: "Metrics",
+    to: "/metrics",
     icon: icons.TrainerSvg(),
   },
 ];

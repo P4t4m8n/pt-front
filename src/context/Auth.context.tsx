@@ -2,9 +2,8 @@ import { createContext } from "react";
 import { TUser } from "../types/user.type";
 
 interface AuthProvider {
-  user: TUser | null;
+  user?: TUser | null;
   signOut: () => Promise<void>;
-  getCurrentUserNoRender: () => TUser | null;
   signIn: (formData: FormData) => Promise<void>;
   signUp: (formData: FormData) => Promise<void>;
 }

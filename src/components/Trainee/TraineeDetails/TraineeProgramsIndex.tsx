@@ -1,18 +1,18 @@
 //Core
 import { useState } from "react";
 //Types
-import { TProgram } from "../../../../types/program.type";
+import { TProgram } from "../../../types/program.type";
 //Services
-import { programService } from "../../../../service/program.service";
+import { programService } from "../../../service/program.service";
 //Hooks
-import { useUser } from "../../../../hooks/useUser";
+import { useUser } from "../../../hooks/useUser";
 //UI
-import ItemList from "../../../UI/ItemList";
-import Model from "../../../UI/Model";
+import ItemList from "../../UI/ItemList";
+import Model from "../../UI/Model";
 //Components
-import TraineeTableEdit from "../../TraineeTableEdit";
-import TraineeProgramPreview from "./TraineeProgramPreview";
-import TraineeProgramEditInputs from "./TraineeProgramEdit/TraineeProgramEditInputs";
+import TraineeTableEdit from "../TraineeTableEdit";
+import TraineeProgramPreview from "../../Program/Preview/ProgramPreview";
+import TraineeProgramEditInputs from "../../Program/Edit/ProgramEditInputs";
 
 interface Props {
   programsProps: TProgram[];

@@ -1,11 +1,20 @@
 import { TDaysOfWeek, TProgram, TProgramDto } from "../types/program.type";
 import { apiService } from "./api.service";
 
-const BASE_URL = "program/";
+const BASE_URL = "programs/v1/";
 
 const save = async (formData: FormData): Promise<TProgram> => {
   const dto = formDataToProgramDto(formData);
   return await apiService.post<TProgramDto, TProgram>(BASE_URL + "save", dto);
+};
+
+const getById = async (id?: string): Promise<TProgram> => {
+  if (!id) throw new Error("Program id is required");
+  return await apiService.get<TProgram>(BASE_URL + id);
+};
+
+const getByUser = async (): Promise<TProgram[]> => {
+  return await apiService.get<TProgram[]>(BASE_URL + "user");
 };
 
 const formDataToProgramDto = (formData: FormData): TProgramDto => {
@@ -33,4 +42,6 @@ const formDataToProgramDto = (formData: FormData): TProgramDto => {
 
 export const programService = {
   save,
+  getById,
+  getByUser,
 };
