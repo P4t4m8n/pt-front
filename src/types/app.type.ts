@@ -26,8 +26,9 @@ export type RouteConfig = {
 };
 
 export interface TToast {
-  id: number;
+  id: string;
   message: string;
   type: TToastType;
+  createdAt: Date;
 }
 export type TToastType = "success" | "error" | "warning" | "info";

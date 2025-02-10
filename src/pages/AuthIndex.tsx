@@ -46,14 +46,14 @@ It also uses the `useNavigate` hook from `react-router-dom` for navigation after
 export default function AuthIndex(): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
-  const [errors, setErrors] = useState<
+  const [serverErrors, setServerErrors] = useState<
     | Record<keyof TAuthSignInDto | keyof TAuthSignUpDto, string>
     | null
     | undefined
   >(null);
   const { signIn, signUp } = useUser();
   const navigate = useNavigate();
-  console.log("AuthIndex -> navigate")
+  console.log("AuthIndex -> navigate");
 
   const handleFormSubmission = async (formData: FormData) => {
     try {
@@ -64,14 +64,15 @@ export default function AuthIndex(): JSX.Element {
         ? "Welcome back!"
         : "Account created successfully!";
 
-      showUserMsg(toastMessage);
+      showUserMsg(toastMessage, "success");
 
       navigate("/");
     } catch (error) {
       if (error instanceof ValidationError) {
-        setErrors(error?.validationErrors?.errors);
+        setServerErrors(error?.validationErrors?.errors);
+        showUserMsg(ERROR_MESSAGES.validation, "warning");
       } else {
-        // showUserMsg("An error occurred. Please try again.");
+        showUserMsg(ERROR_MESSAGES.server, "error");
       }
     } finally {
       setIsLoading(false);
@@ -80,7 +81,7 @@ export default function AuthIndex(): JSX.Element {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors(null);
+    setServerErrors(null);
     const formData = new FormData(e.currentTarget);
     handleFormSubmission(formData);
   };
@@ -101,12 +102,14 @@ export default function AuthIndex(): JSX.Element {
             Enter your email below to {isLogin ? "login" : "sign up"}
           </p>
         </header>
+
         <EmailForm
           onSubmit={onSubmit}
           isLogin={isLogin}
           isLoading={isLoading}
-          errors={errors}
+          serverErrors={serverErrors}
         />
+
         <a
           className="w-full text-center shadow-border p-2 rounded font-semibold text-sm"
           href={googleLoginUrl || "#"}
@@ -120,7 +123,9 @@ export default function AuthIndex(): JSX.Element {
           <Button
             styleMode="none"
             styleSize="none"
-            className="underline font-semibold hover:cursor-pointer"
+            className={`underline font-semibold hover:cursor-pointer ${
+              isLoading ? "opacity-50" : ""
+            }`}
             type="button"
             disabled={isLoading}
             onClick={() => setIsLogin((prev) => !prev)}
@@ -132,3 +137,9 @@ export default function AuthIndex(): JSX.Element {
     </section>
   );
 }
+
+const ERROR_MESSAGES = {
+  network: "Unable to connect. Please check your internet connection.",
+  server: "Something went wrong on our end. Please try again later.",
+  validation: "Please check your input and try again.",
+};

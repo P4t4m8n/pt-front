@@ -10,48 +10,57 @@ interface Props {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   isLogin: boolean;
   isLoading: boolean;
-  errors?: Record<keyof TAuthSignInDto | keyof TAuthSignUpDto, string> | null;
+  serverErrors?: Record<keyof TAuthSignInDto | keyof TAuthSignUpDto, string> | null;
 }
 export default function EmailForm({
   onSubmit,
   isLogin,
   isLoading,
-  errors,
+  serverErrors,
 }: Props) {
   const inputs = isLogin ? LOGIN_INPUTS : SIGN_UP_INPUTS;
   return (
-    <form
-      onSubmit={onSubmit}
-      className="flex flex-col gap-4 transition-all duration-300 h-fit"
-    >
-      {inputs.map((input) => (
-        <Input key={input.name} {...input} id={input.name}>
-          <Label className=" block font-semibold text-sm" htmlFor={input.name}>
-            {input.name.charAt(0).toLocaleUpperCase() + input.name.slice(1)}
-          </Label>
-          <Label
-            className=" pb-1 ps-1.5 block font-semibold text-xs text-red-500 min-h-6"
-            htmlFor={input.name}
-          >
-            {
-              errors?.[
-                input.name as keyof TAuthSignInDto | keyof TAuthSignUpDto
-              ]
-            }
-          </Label>
-        </Input>
-      ))}
-
-      <Button
-        styleMode="none"
-        styleSize="none"
-        className="w-full h-10 text-center bg-accent-light text-text-dark dark:text-text-light p-2 rounded font-semibold text-sm "
-        type="submit"
-        disabled={isLoading}
+    <fieldset disabled={isLoading}>
+      <legend className="sr-only">
+        {isLogin ? "Login" : "Sign up"} form fields
+      </legend>
+      <form
+        onSubmit={onSubmit}
+        className="flex flex-col gap-4 transition-all duration-300 h-fit"
+        aria-label={`${isLogin ? "Login" : "Sign-up"} form`}
       >
-        {isLoading ? <Loader /> : isLogin ? "Login" : "Sign-Up"}
-      </Button>
-    </form>
+        {inputs.map((input) => (
+          <Input key={input.name} {...input} id={input.name}>
+            <Label
+              className=" block font-semibold text-sm"
+              htmlFor={input.name}
+            >
+              {input.name.charAt(0).toLocaleUpperCase() + input.name.slice(1)}
+            </Label>
+            <Label
+              className=" pb-1 ps-1.5 block font-semibold text-xs text-red-500 min-h-6"
+              htmlFor={input.name}
+            >
+              {
+                serverErrors?.[
+                  input.name as keyof TAuthSignInDto | keyof TAuthSignUpDto
+                ]
+              }
+            </Label>
+          </Input>
+        ))}
+
+        <Button
+          styleMode="none"
+          styleSize="none"
+          className="w-full h-10 text-center bg-accent-light text-text-dark dark:text-text-light p-2 rounded font-semibold text-sm "
+          type="submit"
+          disabled={isLoading}
+        >
+          {isLoading ? <Loader /> : isLogin ? "Login" : "Sign-Up"}
+        </Button>
+      </form>
+    </fieldset>
   );
 }
 
@@ -60,8 +69,8 @@ const LOGIN_INPUTS = [
     type: "email",
     placeholder: "Email",
     name: "email",
-    required: true,
-    pattern: "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$", // Normal email format
+    // required: true,
+    // pattern: "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$", // Normal email format
     title: "Please enter a valid email address.",
     autoComplete: "email",
   },
@@ -71,8 +80,8 @@ const LOGIN_INPUTS = [
     name: "password",
 
     autoComplete: "current-password",
-    pattern: "^(?=.*[A-Z])(?=.*\\d).{6,}$", // At least 6 chars, 1 uppercase, 1 number
-    required: true,
+    // pattern: "^(?=.*[A-Z])(?=.*\\d).{6,}$", // At least 6 chars, 1 uppercase, 1 number
+    // required: true,
     title:
       "Password must be at least 6 characters long, contain an uppercase letter and a number.",
   },
