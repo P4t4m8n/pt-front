@@ -5,7 +5,7 @@ import Button from "../Button";
 
 interface Props {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  handleItem: (formData: FormData) => Promise<void>;
+  handleItem: (formData: FormData) => Promise<boolean>;
   children?: React.ReactNode;
   disabled?: boolean;
 }
@@ -20,16 +20,12 @@ export default function EditForm({
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    try {
-      setIsLoading(true);
-      const formData = new FormData(e?.currentTarget);
-      await handleItem(formData);
-      if (setIsOpen) setIsOpen(false);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
+
+    setIsLoading(true);
+    const formData = new FormData(e?.currentTarget);
+    const isSuccess = await handleItem(formData);
+    if (isSuccess && setIsOpen) setIsOpen(false);
+    setIsLoading(false);
   };
   return (
     <form

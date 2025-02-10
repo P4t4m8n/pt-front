@@ -53,7 +53,6 @@ export default function AuthIndex(): JSX.Element {
   >(null);
   const { signIn, signUp } = useUser();
   const navigate = useNavigate();
-  console.log("AuthIndex -> navigate");
 
   const handleFormSubmission = async (formData: FormData) => {
     try {

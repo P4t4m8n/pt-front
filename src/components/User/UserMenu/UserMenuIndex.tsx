@@ -10,9 +10,12 @@ import { icons } from "../../UI/Icons/App.icons";
 
 export default function UserMenuIndex() {
   const { user, signOut } = useUser();
+  console.log("user:", user);
   const modelRef = useRef(null);
   const [isOpen, setIsOpen] = useModel(modelRef);
-
+  //User is undefined when the query is still loading prevent the component from rendering
+  if (user === undefined) return;
+  //If user is null then the user is not authenticated
   if (!user) {
     return (
       <NavLinkCmp
@@ -26,18 +29,19 @@ export default function UserMenuIndex() {
     );
   }
   return (
-    <div ref={modelRef} className="relative">
+    <div ref={modelRef} className="relative h-12 aspect-square">
       <Button
         styleMode="none"
         styleSize="none"
-        className="h-full aspect-square fill-white"
+        className=" fill-white w-full h-full"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {user?.imgUrl ? (
           <Image
-            src={user?.imgUrl}
+            srcProp={user?.imgUrl}
             alt="User avatar"
-            className="w-8 h-8 stroke-text-light dark:stroke-text-dark fill-text-light dark:fill-text-dark"
+            styleSize="responsive"
+            styleMode="avatar"
           />
         ) : (
           icons.ProfileSvg()

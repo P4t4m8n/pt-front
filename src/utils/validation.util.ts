@@ -137,6 +137,17 @@ const validateDateStr = (filedName: string, value?: string): string | null => {
   return null;
 };
 
+const compareStr = (
+  filedName: string,
+  str1?: string,
+  str2?: string
+): string | null => {
+  if (str1 !== str2) {
+    return `${filedName} do not match.`;
+  }
+  return null;
+};
+
 /**
  * Provides validation utilities for various data types.
  */
@@ -149,4 +160,5 @@ export const validationUtil = {
   validateNumbers,
   validateDate,
   validateDateStr,
+  compareStr,
 };

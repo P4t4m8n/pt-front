@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Solitreo&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -13,12 +14,20 @@
   --color-secondary-dark: #ac022f;
   --color-accent-dark: #fb4d18;
 
-  --height-main: calc(100svh - 8rem);
-  --height-main-with-gap: calc(100svh - 9rem);
+  --height-main: calc(100svh - 9rem);
+  --height-main-with-gap: calc(100svh - 11rem);
+
+  --font-solitreo: "Solitreo", sans-serif;
 }
 
 .shadow-border {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+.shadow-border-b {
+  box-shadow: 0 2px 1px -1px rgba(255, 255, 255, 0.2);
+}
+.shadow-border-t {
+  box-shadow: 0 -2px 1px -1px rgba(255, 255, 255, 0.2);
 }
 
 .text {

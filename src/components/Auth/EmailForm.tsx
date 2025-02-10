@@ -10,7 +10,10 @@ interface Props {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   isLogin: boolean;
   isLoading: boolean;
-  serverErrors?: Record<keyof TAuthSignInDto | keyof TAuthSignUpDto, string> | null;
+  serverErrors?: Record<
+    keyof TAuthSignInDto | keyof TAuthSignUpDto,
+    string
+  > | null;
 }
 export default function EmailForm({
   onSubmit,
@@ -32,13 +35,13 @@ export default function EmailForm({
         {inputs.map((input) => (
           <Input key={input.name} {...input} id={input.name}>
             <Label
-              className=" block font-semibold text-sm"
+              className=" block font-semibold text-sm "
               htmlFor={input.name}
             >
               {input.name.charAt(0).toLocaleUpperCase() + input.name.slice(1)}
             </Label>
             <Label
-              className=" pb-1 ps-1.5 block font-semibold text-xs text-red-500 min-h-6"
+              className="ps-1.5 block font-semibold text-xs text-red-500"
               htmlFor={input.name}
             >
               {
@@ -71,39 +74,48 @@ const LOGIN_INPUTS = [
     name: "email",
     // required: true,
     // pattern: "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$", // Normal email format
-    title: "Please enter a valid email address.",
+    // title: "Please enter a valid email address.",
     autoComplete: "email",
   },
   {
     type: "password",
     placeholder: "Password",
     name: "password",
-
     autoComplete: "current-password",
     // pattern: "^(?=.*[A-Z])(?=.*\\d).{6,}$", // At least 6 chars, 1 uppercase, 1 number
     // required: true,
-    title:
-      "Password must be at least 6 characters long, contain an uppercase letter and a number.",
+    // title:
+    //   "Password must be at least 6 characters long, contain an uppercase letter and a number.",
   },
 ];
 
 const SIGN_UP_INPUTS = [
   ...LOGIN_INPUTS,
   {
+    type: "password",
+    placeholder: "Password",
+    name: "password-confirm",
+    autoComplete: "current-password",
+    // pattern: "^(?=.*[A-Z])(?=.*\\d).{6,}$", // At least 6 chars, 1 uppercase, 1 number
+    // required: true,
+    // title:
+    //   "Password must be at least 6 characters long, contain an uppercase letter and a number.",
+  },
+  {
     type: "text",
     placeholder: "First name",
     name: "firstName",
-    required: true,
-    title: "First name must contain at least 2 letters.",
-    pattern: "^[a-zA-Z]{2,}$", // Only letters, at least 2 characters
+    // required: true,
+    // title: "First name must contain at least 2 letters.",
+    // // pattern: "^[a-zA-Z]{2,}$", // Only letters, at least 2 characters
   },
   {
     type: "text",
     placeholder: "Last name",
     name: "lastName",
     autoComplete: "family-name",
-    required: true,
-    title: "Last name must contain at least 2 letters.",
-    pattern: "^[a-zA-Z]{2,}$", // Only letters, at least 2 characters
+    // required: true,
+    // title: "Last name must contain at least 2 letters.",
+    // // pattern: "^[a-zA-Z]{2,}$", // Only letters, at least 2 characters
   },
 ];

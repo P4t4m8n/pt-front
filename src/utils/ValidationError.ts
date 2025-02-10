@@ -1,20 +1,21 @@
-import { TAuthSignInDto, TAuthSignUpDto } from "../types/auth.type";
-
-type TValidationError = {
+type TValidationError<T> = {
   message: string;
-  errors: Record<keyof TAuthSignInDto | keyof TAuthSignUpDto, string>;
+  errors: Record<keyof T, string>;
 };
 
-export class ValidationError extends Error {
-  public readonly validationErrors?: TValidationError;
+export class ValidationError<T> extends Error {
+  public readonly validationErrors?: TValidationError<T>;
 
-  constructor(message: string, validationErrors?: TValidationError) {
+  constructor(message: string, validationErrors?: TValidationError<T>) {
     super(message);
     this.name = "ValidationError";
     this.validationErrors = validationErrors;
   }
 
-  public static create(message: string, validationErrors?: TValidationError) {
+  public static create<T>(
+    message: string,
+    validationErrors?: TValidationError<T>
+  ) {
     return new ValidationError(message, validationErrors);
   }
 }

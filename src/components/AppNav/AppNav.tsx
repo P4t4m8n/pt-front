@@ -4,7 +4,7 @@ import NavLinks from "../UI/NavLinks";
 export default function AppNav() {
   return (
     <NavLinks
-      navStyle=" flex w-full justify-between py-2 px-6 h-16 border-t"
+      navStyle=" flex w-full justify-between py-2 px-6 h-16 shadow-border-t"
       itemStyle="w-6 flex flex-col items-center justify-between "
       navLinks={NAV_LINKS}
     />

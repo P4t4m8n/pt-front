@@ -41,8 +41,8 @@ const ajax = async <T>(
 
   if (!res.ok) {
     const error = await res.json();
-    if (res.status === 401) {
-      throw ValidationError.create("Validation Error", error);
+    if (res.status === 400) {
+      throw ValidationError.create<T>("Validation Error", error);
     }
 
     throw new Error(error.message);

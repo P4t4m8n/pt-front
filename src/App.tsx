@@ -5,17 +5,17 @@ import Header from "./components/Header/Header";
 import AppNav from "./components/AppNav/AppNav";
 
 import "./index.css";
-import Toast from "./components/UI/Toast/Toast";
+import Toast from "./components/UI/Toast";
 
 export default function App() {
   const routes = renderRoutes(ROUTES);
   return (
     <>
-        <Toast />
+      <Toast />
       <BrowserRouter>
-        <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+        <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-solitreo">
           <Header />
-          <section className="h-[calc(100svh-8rem)] overflow-auto p-4">
+          <section className="h-main overflow-auto p-4">
             <Routes>{routes}</Routes>
           </section>
           <AppNav />

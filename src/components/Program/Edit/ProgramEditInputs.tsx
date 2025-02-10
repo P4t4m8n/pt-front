@@ -8,8 +8,9 @@ import ProgramEditDays from "./ProgramEditDays";
 
 interface Props {
   program?: TProgram;
+  traineeId?: string;
 }
-export default function ProgramEditInputs({ program }: Props) {
+export default function ProgramEditInputs({ program, traineeId }: Props) {
   return (
     <>
       <Input
@@ -23,6 +24,13 @@ export default function ProgramEditInputs({ program }: Props) {
         type="text"
         defaultValue={program?.id}
         name="id"
+        divStyle="hidden"
+        hidden
+      />
+      <Input
+        type="text"
+        defaultValue={traineeId}
+        name="traineeId"
         divStyle="hidden"
         hidden
       />

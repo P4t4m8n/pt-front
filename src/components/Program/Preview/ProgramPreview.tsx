@@ -12,7 +12,7 @@ import TraineeProgramEditInputs from "../Edit/ProgramEditInputs";
 
 interface Props {
   program: TProgram;
-  handleItem: (formData: FormData) => Promise<void>;
+  handleItem: (formData: FormData) => Promise<boolean>;
 }
 
 export default function ProgramPreview({ program, handleItem }: Props) {

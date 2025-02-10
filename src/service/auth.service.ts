@@ -16,7 +16,8 @@ const BASE_URL = "auth/";
  * @returns {Promise<TUser | null>} A promise that resolves to the current session user of type `TUser` or `null` if no user is found.
  */
 const getSessionUser = async (): Promise<TUser | null> => {
-  return await apiService.get<TUser>(BASE_URL + "session");
+  const user = await apiService.get<TUser>(BASE_URL + "session");
+  return user;
 };
 /**
  * Signs out the current user.
@@ -35,8 +36,8 @@ const signOut = async (): Promise<void> => {
  * @throws {ValidationError} Thrown if the form data is invalid.
  */
 const signUp = async (formData: FormData): Promise<TUser> => {
-  const dto = formDataToDto(formData);
-  const errors = validateSignUpDto(dto as TAuthSignUpDto);
+  const { dto, passwordConfirm } = formDataToDto(formData);
+  const errors = validateSignUpDto(dto as TAuthSignUpDto, passwordConfirm);
   if (Object.keys(errors).length > 0) {
     throw ValidationError.create("Validation Error", { message: "", errors });
   }
@@ -53,7 +54,7 @@ const signUp = async (formData: FormData): Promise<TUser> => {
  * @throws {ValidationError} Thrown if the form data is invalid.
  */
 const signIn = async (formData: FormData): Promise<TUser> => {
-  const dto = formDataToDto(formData);
+  const { dto } = formDataToDto(formData);
   const errors = validateSignInDto(dto as TAuthSignInDto);
   if (Object.keys(errors).length > 0) {
     throw ValidationError.create("Validation Error", { message: "", errors });
@@ -77,32 +78,47 @@ const googleRedirect = async (): Promise<void> => {
  * @param {FormData} formData - The form data containing user details.
  * @returns {TAuthSignInDto | TAuthSignUpDto} The data transfer object containing user details.
  */
-const formDataToDto = (formData: FormData): TAuthSignInDto | TAuthSignUpDto => {
+const formDataToDto = (
+  formData: FormData
+): { dto: TAuthSignInDto | TAuthSignUpDto; passwordConfirm: string } => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const firstName = formData.get("firstName") as string;
   const lastName = formData.get("lastName") as string;
-  return { email, password, firstName, lastName };
+  const passwordConfirm = formData.get("password-confirm") as string;
+  return { dto: { email, password, firstName, lastName }, passwordConfirm };
 };
 /**
  * Validates the sign-up data transfer object (DTO) for user registration.
  *
- * @param {TAuthSignUpDto} userDto - The user sign-up data transfer object containing user details.
+ * @param {TAuthSignUpDto} dto - The user sign-up data transfer object containing user details.
  * @returns {Record<string, string>} An object containing validation errors, if any. The keys are the field names and the values are the corresponding error messages.
  */
-const validateSignUpDto = (userDto: TAuthSignUpDto): Record<string, string> => {
+const validateSignUpDto = (
+  dto: TAuthSignUpDto,
+  passwordConfirm?: string
+): Record<string, string> => {
   const errors: Record<string, string> = {};
 
-  const emailError = _validateEmail(userDto?.email);
+  const emailError = _validateEmail(dto?.email);
   if (emailError) errors.email = emailError;
-  const passwordError = _validatePassword(userDto?.password);
+  const passwordError = _validatePassword(dto?.password);
   if (passwordError) errors.password = passwordError;
 
-  const firstNameError = _validateNames(userDto?.firstName, "First Name");
+  const firstNameError = _validateNames(dto?.firstName, "First Name");
   if (firstNameError) errors.firstName = firstNameError;
 
-  const lastNameError = _validateNames(userDto?.lastName, "Last Name");
+  const lastNameError = _validateNames(dto?.lastName, "Last Name");
   if (lastNameError) errors.lastName = lastNameError;
+
+  if (!passwordError && passwordConfirm) {
+    const passwordMatch = validationUtil.compareStr(
+      "Password",
+      dto?.password,
+      passwordConfirm
+    );
+    if (passwordMatch) errors.password = passwordMatch;
+  }
 
   return errors;
 };

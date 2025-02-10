@@ -5,9 +5,8 @@ export const useSessionUserQuery = () => {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["session-user"],
     queryFn: () => authService.getSessionUser(),
-    refetchOnWindowFocus: true,
-    refetchOnMount: true,
-    initialData: null,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
     retry: (failureCount, error) => {
       // Only retry if it's not an auth or validation error
       const customError = error as { status?: number };

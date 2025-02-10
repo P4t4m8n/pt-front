@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { eventBus, SHOW_MSG } from "../../../utils/toastEmitter.util";
-import { TToast } from "../../../types/app.type";
-import Button from "../Button";
-import { icons } from "../Icons/App.icons";
+import { eventBus, SHOW_MSG } from "../../utils/toastEmitter.util";
+import { TToast } from "../../types/app.type";
+import Button from "./Button";
+import { icons } from "./Icons/App.icons";
 
 export default function Toast() {
   const [toast, setToast] = useState<TToast | null>(null);
@@ -55,7 +55,7 @@ export default function Toast() {
 
   const style = `${
     stylesStatus[toast?.type || "default"]
-  } ${animation} fixed bottom-18 right-2 w-60 h-fit p-2 rounded-md font-semibold text-center flex gap-1 items-start`;
+  } ${animation} fixed bottom-18 right-2 w-60 h-fit p-2 rounded-md font-semibold text-center flex gap-1 items-start z-50`;
 
   if (!toast) return null;
 

@@ -1,7 +1,7 @@
 import { TDaysOfWeek, TProgram, TProgramDto } from "../types/program.type";
 import { apiService } from "./api.service";
 
-const BASE_URL = "programs/v1/";
+const BASE_URL = "programs/";
 
 const save = async (formData: FormData): Promise<TProgram> => {
   const dto = formDataToProgramDto(formData);
