@@ -9,5 +9,5 @@ export const useProgramsQuery = () => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });
-  return { isPending, isError, programs: data, error };
+  return { isPending, isError, items: data, error };
 };

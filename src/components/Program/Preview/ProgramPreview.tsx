@@ -7,8 +7,8 @@ import { icons } from "../../UI/Icons/App.icons";
 import NavLinkCmp from "../../UI/Link";
 import Model from "../../UI/Model";
 //Components
-import TraineeTableEdit from "../../Trainee/TraineeTableEdit";
-import TraineeProgramEditInputs from "../Edit/ProgramEditInputs";
+import EditForm from "../../UI/Form/EditForm";
+import ProgramEditInputs from "../Edit/ProgramEditInputs";
 
 interface Props {
   program: TProgram;
@@ -44,9 +44,9 @@ export default function ProgramPreview({ program, handleItem }: Props) {
             },
           }}
           model={
-            <TraineeTableEdit handleItem={handleItem}>
-              <TraineeProgramEditInputs program={program} />
-            </TraineeTableEdit>
+            <EditForm handleItem={handleItem}>
+              <ProgramEditInputs program={program} />
+            </EditForm>
           }
         />
       </span>

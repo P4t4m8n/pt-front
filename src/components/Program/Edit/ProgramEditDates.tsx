@@ -8,6 +8,8 @@ interface Props {
   startDate?: string;
   endDate?: string;
 }
+
+//TODO build a custom calendar for date picker
 export default function ProgramEditDates({ startDate, endDate }: Props) {
   const formattedStartDate = dateUtil.formatDateForInput(
     startDate || new Date()
@@ -26,7 +28,7 @@ export default function ProgramEditDates({ startDate, endDate }: Props) {
         />
       </span>
       <span>
-        <Label htmlFor="endDate">Edn Date</Label>
+        <Label htmlFor="endDate">End Date</Label>
         <Input
           type="date"
           name="endDate"

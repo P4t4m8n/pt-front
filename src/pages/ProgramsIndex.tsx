@@ -1,5 +1,3 @@
-//Core
-import { useQueryClient } from "@tanstack/react-query";
 //Types
 import { TProgram, TProgramDto } from "../types/program.type";
 //Services
@@ -13,45 +11,23 @@ import ItemList from "../components/UI/ItemList";
 //Components
 import ProgramEditInputs from "../components/Program/Edit/ProgramEditInputs";
 import ProgramPreview from "../components/Program/Preview/ProgramPreview";
-import { useState } from "react";
-import { ValidationError } from "../utils/ValidationError";
-import { showUserMsg } from "../utils/toastEmitter.util";
-import { ERROR_MESSAGES } from "../constants/errors.const";
-import { useUser } from "../hooks/useUser";
+import { useItems } from "../hooks/useItems";
 
 export default function ProgramsIndex() {
-  const { isPending, isError, programs, error } = useProgramsQuery();
-  const queryClient = useQueryClient();
-  const [serverErrors, setServerErrors] = useState<
-    Record<keyof TProgramDto, string> | null | undefined
-  >(null);
-  console.log("serverErrors:", serverErrors);
-  const { user } = useUser();
+  const {
+    isPending,
+    isError,
+    items: programs,
+    error,
+    handleItem,
+    serverErrors,
+  } = useItems<TProgram, TProgramDto>({
+    useQuery: useProgramsQuery,
+    itemAction: { actions: programService.save, queryKey: "user-programs" },
+  });
+
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error: {error?.message}</div>;
-
-  const handleItem = async (formData: FormData) => {
-    try {
-      console.log("formData:");
-      const _program = await programService.save(formData);
-      queryClient.setQueryData(["user-programs"], (prev: TProgram[]) => {
-        const idx = prev.findIndex((item) => item.id === _program.id);
-        if (idx < 0) return [...prev, _program];
-        prev[idx] = _program;
-        return [...prev];
-      });
-
-      return true;
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        setServerErrors(error?.validationErrors?.errors);
-        showUserMsg(ERROR_MESSAGES.validation, "warning");
-      } else {
-        showUserMsg(ERROR_MESSAGES.server, "error");
-      }
-      return false;
-    }
-  };
 
   return (
     <div className="p-2 flex flex-col gap-4 ">
@@ -66,7 +42,10 @@ export default function ProgramsIndex() {
         }}
         model={
           <EditForm handleItem={handleItem}>
-            <ProgramEditInputs program={{}} traineeId={user?.trainee?.id} />
+            <ProgramEditInputs
+              program={{}}
+              serverErrors={serverErrors}
+            />
           </EditForm>
         }
       />

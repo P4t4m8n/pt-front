@@ -41,7 +41,8 @@ const ajax = async <T>(
 
   if (!res.ok) {
     const error = await res.json();
-    if (res.status === 400) {
+    console.log("error:", error)
+    if (res.status >= 400 && res.status < 500) {
       throw ValidationError.create<T>("Validation Error", error);
     }
 
