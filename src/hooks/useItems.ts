@@ -37,6 +37,7 @@ interface UseItemsProps<T extends { id?: string }> {
 export const useItems = <T extends { id?: string }, DTO>(
   props: UseItemsProps<T>
 ) => {
+    
   const { useQuery: useQuery, itemAction } = props;
   const { isPending, isError, items, error } = useQuery();
   const queryClient = useQueryClient();
