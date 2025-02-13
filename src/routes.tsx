@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import AuthIndex from "./pages/AuthIndex";
 import ProgramsIndex from "./pages/ProgramsIndex";
 import ProgramDetailsIndex from "./components/Program/Details/ProgramDetailsIndex";
+import TrainingIndex from "./pages/TrainingIndex";
 
 export const renderRoutes = (routes: RouteConfig[]) => {
   return routes.map((route) => (
@@ -33,26 +34,8 @@ export const ROUTES: RouteConfig[] = [
     path: "/programs/:id",
     element: <ProgramDetailsIndex />,
   },
-  // {
-  //   path: "/trainer",
-  //   element: <TrainerIndex />,
-  //   children: [
-  //     {
-  //       path: "training",
-  //       element: <TrainingIndex />,
-  //     },
-  //     {
-  //       path: "trainees",
-  //       element: <TraineesIndex />,
-  //     },
-  //     {
-  //       path: "trainee/:id",
-  //       element: <TrainerTraineeDetails />,
-  //     },
-  //     {
-  //       path: "search",
-  //       element: <TrainerSearchIndex />,
-  //     },
-  //   ],
-  // },
+  {
+    path: "/trainings/",
+    element: <TrainingIndex />,
+  },
 ];

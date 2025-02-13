@@ -6,7 +6,7 @@ import {
 import { apiService } from "./api.service";
 import { setService } from "./set.service";
 
-const BASE_URL = "training/";
+const BASE_URL = "trainings/";
 
 const get = async (params?: URLSearchParams): Promise<TTraining[]> => {
   const filter = buildFilter(params);
@@ -15,7 +15,10 @@ const get = async (params?: URLSearchParams): Promise<TTraining[]> => {
   return trainings;
 };
 
-const getById = async (id: string): Promise<TTraining> => {
+const getById = async (id?: string): Promise<TTraining> => {
+  if (!id) {
+    return getEmpty();
+  }
   const url = BASE_URL + id;
   const training = await apiService.get<TTraining>(url);
   return training;

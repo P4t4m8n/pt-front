@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
-import { useItemQuery } from "../../../hooks/queryHooks/useItemQuery";
-import { TProgram } from "../../../types/program.type";
+import { useSingleItemQuery } from "../../../hooks/queryHooks/useSingleItemQuery";
+import { TProgram, TProgramDto } from "../../../types/program.type";
 import { programService } from "../../../service/program.service";
 
 export default function ProgramDetailsIndex() {
@@ -10,15 +10,15 @@ export default function ProgramDetailsIndex() {
     isError,
     data: program,
     error,
-  } = useItemQuery<TProgram>({
+  } = useSingleItemQuery<TProgram, TProgramDto>({
     id,
     queryKey: "program-details",
     getById: programService.getById,
   });
+  console.log("program:", program);
 
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error: {error?.message}</div>;
-  console.log("program:", program);
 
   return <div>ProgramDetailsIndex</div>;
 }

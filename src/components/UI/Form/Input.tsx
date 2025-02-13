@@ -17,7 +17,6 @@ const Input = memo(function Input({ divStyle, children, ...props }: Props) {
 
   //If Hidden, then input comes first, else children comes first for custom inputs using tailwind peer
   const isHidden = props.hidden;
-  console.log("isHidden:", isHidden)
   return (
     <div className={divStyle}>
       {isHidden ? (

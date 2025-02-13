@@ -1,6 +1,6 @@
 type TClientError<T> = {
   message: string;
-  errors: Map<keyof T, string>;
+  errors: Record<keyof T, string>;
 };
 
 enum EClientErrorCodes {

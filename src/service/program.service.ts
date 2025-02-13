@@ -5,12 +5,10 @@ const BASE_URL = "programs/";
 
 const save = async (formData: FormData): Promise<TProgram> => {
   const dto = formDataToProgramDto(formData);
-  console.log("dto:", dto)
   return await apiService.post<TProgramDto, TProgram>(BASE_URL + "save", dto);
 };
 
 const getById = async (id?: string): Promise<TProgram> => {
-  console.log("id:", id)
   if (!id) throw new Error("Program id is required");
   return await apiService.get<TProgram>(BASE_URL + id);
 };

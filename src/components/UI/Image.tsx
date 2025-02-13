@@ -1,7 +1,9 @@
+import { icons } from "./Icons/App.icons";
+
 interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   className?: string;
   styleMode?: "regular" | "avatar";
-  styleSize?: "small" | "medium" | "large" | "none"|"responsive";
+  styleSize?: "small" | "medium" | "large" | "none" | "responsive";
   srcProp?: string;
 }
 
@@ -25,9 +27,17 @@ export default function Image({
   srcProp,
   ...props
 }: Props) {
-  const src = srcProp || import.meta.env.VITE_DEFAULT_AVATAR_URL;
   const style = `${STYLE_MODE[styleMode || "regular"]} ${
     STYLE_SIZE[styleSize || "none"]
   } ${className} object-cover`;
-  return <img {...props} className={style} src={src} />;
+
+  return (
+    <>
+      {srcProp ? (
+        <img {...props} className={style} src={srcProp} />
+      ) : (
+        <>{icons.NoImageSvg({ className: "fill-white" })}</>
+      )}
+    </>
+  );
 }

@@ -6,33 +6,33 @@ import { ClientError } from "../utils/ClientError";
 import { showUserMsg } from "../utils/toastEmitter.util";
 //Constants
 import { ERROR_MESSAGES } from "../constants/errors.const";
+import { useListItemsQuery } from "./queryHooks/useListItemsQuery";
 
 interface UseItemsProps<T extends { id?: string }> {
-  useQuery: () => {
-    isPending: boolean;
-    isError: boolean;
-    items: T[] | undefined;
-    error: Error | null;
-  };
-  itemAction: {
-    actions: (formData: FormData) => Promise<T>;
-    queryKey: string;
-  };
+  save: (formData: FormData) => Promise<T>;
+  get: (params?: URLSearchParams) => Promise<T[]>;
+  queryKey: string;
+  params?: URLSearchParams;
 }
 /**
- * Custom hook to manage items with query and item actions.
+ * Custom hook to manage items with asynchronous operations.
  *
- * @template T - The type of the item, which extends an object with an optional `id` property.
- * @template DTO - The Data Transfer Object type for server errors.
+ * @template T - The type of the items, which must have an optional `id` property.
+ * @template DTO - The type of the Data Transfer Object for server errors.
  *
- * @param {UseItemsProps<T>} props - The properties for the hook, including `useQuery` and `itemAction`.
- * @returns {Object} - An object containing:
- *   - `isPending` (boolean): Indicates if the query is pending.
- *   - `isError` (boolean): Indicates if there was an error with the query.
- *   - `items` (T[]): The list of items returned by the query.
- *   - `error` (any): The error object if the query failed.
- *   - `handleItem` (function): A function to handle item actions, which takes `FormData` as an argument and returns a boolean indicating success or failure.
- *   - `serverErrors` (Record<keyof DTO, string> | null | undefined): The server validation errors, if any.
+ * @param {UseItemsProps<T>} props - The properties required to use the hook.
+ * @param {Function} props.get - Function to fetch the items.
+ * @param {Function} props.save - Function to save an item.
+ * @param {string} props.queryKey - The query key for caching.
+ * @param {Object} [props.params] - Optional parameters for fetching items.
+ *
+ * @returns {Object} The state and handlers for managing items.
+ * @returns {boolean} isPending - Indicates if the items are being fetched.
+ * @returns {boolean} isError - Indicates if there was an error fetching the items.
+ * @returns {T[] | undefined} items - The fetched items.
+ * @returns {Error | null} error - The error encountered during fetching, if any.
+ * @returns {Function} handleItem - Handler to save an item.
+ * @returns {Record<keyof DTO, string> | null | undefined} serverErrors - Server validation errors, if any.
  */
 export const useItems = <T extends { id?: string }, DTO>(
   props: UseItemsProps<T>
@@ -44,8 +44,12 @@ export const useItems = <T extends { id?: string }, DTO>(
   handleItem: (formData: FormData) => Promise<boolean>;
   serverErrors: Record<keyof DTO, string> | null | undefined;
 } => {
-  const { useQuery: useQuery, itemAction } = props;
-  const { isPending, isError, items, error } = useQuery();
+  const { get, save, queryKey, params } = props;
+  const { isPending, isError, items, error } = useListItemsQuery({
+    get,
+    queryKey,
+    params,
+  });
   const queryClient = useQueryClient();
   const [serverErrors, setServerErrors] = useState<
     Record<keyof DTO, string> | null | undefined
@@ -53,10 +57,9 @@ export const useItems = <T extends { id?: string }, DTO>(
 
   const handleItem = useCallback(
     async (formData: FormData) => {
-      const { actions, queryKey } = itemAction;
       try {
-        const _item = await actions(formData);
-        queryClient.setQueryData([queryKey], (prev: T[]) => {
+        const _item = await save(formData);
+        queryClient.setQueryData([queryKey, params], (prev: T[]) => {
           const idx = prev.findIndex((item) => item?.id === _item?.id);
           if (idx < 0) return [...prev, _item];
           return prev.map((item) => (item?.id === _item?.id ? _item : item));
@@ -73,7 +76,7 @@ export const useItems = <T extends { id?: string }, DTO>(
         return false;
       }
     },
-    [itemAction, queryClient]
+    [queryClient, queryKey, save]
   );
 
   return { isPending, isError, items, error, handleItem, serverErrors };

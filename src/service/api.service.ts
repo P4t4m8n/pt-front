@@ -41,7 +41,6 @@ const ajax = async <T>(
 
   if (!res.ok) {
     const error = await res.json();
-    console.log("error:", error);
     if (res.status >= 400 && res.status < 500) {
       throw ClientError.create<T>(res.status, error);
     }

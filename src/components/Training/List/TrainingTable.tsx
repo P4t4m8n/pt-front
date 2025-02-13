@@ -1,8 +1,7 @@
 import { TTraining } from "../../../types/training.type";
 import Model from "../../UI/Model";
 import TrainingDetails from "../Details/TrainingDetails";
-import TrainingEdit from "../Edit/TrainingEdit";
-
+import TrainingEdit from "../Edit/TrainingEditInputs";
 
 interface Props {
   trainings: TTraining[];

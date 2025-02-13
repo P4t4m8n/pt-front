@@ -1,4 +1,5 @@
 import { TTrainee, TTraineeDto, TTraineeFilter } from "../types/trainee.type";
+import { TTraining } from "../types/training.type";
 import { apiService } from "./api.service";
 
 const BASE_URL = "trainee/";
@@ -17,16 +18,9 @@ const getById = async (id?: string): Promise<TTrainee> => {
   return trainee;
 };
 
-
-
-const create = async (formData: FormData): Promise<string> => {
+const save = async (formData: FormData): Promise<TTraining> => {
   const dto = formDataToDto(formData);
-  const { id } = await apiService.post<TTraineeDto, { id: string }>(
-    BASE_URL + "create",
-    dto
-  );
-
-  return id;
+  return await apiService.post<TTraineeDto, TTraining>(BASE_URL, dto);
 };
 
 const formDataToDto = (formData: FormData): TTraineeDto => {
@@ -47,5 +41,5 @@ const formDataToDto = (formData: FormData): TTraineeDto => {
 export const traineeService = {
   get,
   getById,
-  create,
+  save,
 };
