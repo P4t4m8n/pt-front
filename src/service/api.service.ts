@@ -1,4 +1,4 @@
-import { ValidationError } from "../utils/ValidationError";
+import { ClientError } from "../utils/ClientError";
 
 const BASE_URL = "http://localhost:3030/api/v1/";
 type TApiService = {
@@ -41,9 +41,9 @@ const ajax = async <T>(
 
   if (!res.ok) {
     const error = await res.json();
-    console.log("error:", error)
+    console.log("error:", error);
     if (res.status >= 400 && res.status < 500) {
-      throw ValidationError.create<T>("Validation Error", error);
+      throw ClientError.create<T>(res.status, error);
     }
 
     throw new Error(error.message);

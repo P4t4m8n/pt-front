@@ -3,7 +3,7 @@ import { TAuthSignInDto, TAuthSignUpDto } from "../types/auth.type";
 import { TUser } from "../types/user.type";
 //Utils
 import { validationUtil } from "../utils/validation.util";
-import { ValidationError } from "../utils/ValidationError";
+import { ClientError } from "../utils/ClientError";
 //Services
 import { apiService } from "./api.service";
 /**
@@ -33,13 +33,13 @@ const signOut = async (): Promise<void> => {
  * Validates the form data before registration.
  * @param {FormData} formData - The form data containing user details.
  * @returns {Promise<TUser>} A promise that resolves to the registered user of type `TUser`.
- * @throws {ValidationError} Thrown if the form data is invalid.
+ * @throws {ClientError} Thrown if the form data is invalid.
  */
 const signUp = async (formData: FormData): Promise<TUser> => {
   const { dto, passwordConfirm } = formDataToDto(formData);
   const errors = validateSignUpDto(dto as TAuthSignUpDto, passwordConfirm);
   if (Object.keys(errors).length > 0) {
-    throw ValidationError.create("Validation Error", { message: "", errors });
+    throw ClientError.create("Validation Error", { message: "", errors });
   }
   return await apiService.post<TAuthSignUpDto, TUser>(
     BASE_URL + "sign-up",
@@ -51,13 +51,13 @@ const signUp = async (formData: FormData): Promise<TUser> => {
  * Validates the form data before authentication.
  * @param {FormData} formData - The form data containing user credentials.
  * @returns {Promise<TUser>} A promise that resolves to the authenticated user of type `TUser`.
- * @throws {ValidationError} Thrown if the form data is invalid.
+ * @throws {ClientError} Thrown if the form data is invalid.
  */
 const signIn = async (formData: FormData): Promise<TUser> => {
   const { dto } = formDataToDto(formData);
   const errors = validateSignInDto(dto as TAuthSignInDto);
   if (Object.keys(errors).length > 0) {
-    throw ValidationError.create("Validation Error", { message: "", errors });
+    throw ClientError.create("Validation Error", { message: "", errors });
   }
 
   return await apiService.post<TAuthSignInDto, TUser>(

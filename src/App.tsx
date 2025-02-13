@@ -13,7 +13,7 @@ export default function App() {
     <>
       <Toast />
       <BrowserRouter>
-        <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-solitreo">
+        <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-solitreo  ">
           <Header />
           <section className="h-main overflow-auto p-4">
             <Routes>{routes}</Routes>

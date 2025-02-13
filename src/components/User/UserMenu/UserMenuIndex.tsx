@@ -10,7 +10,6 @@ import { icons } from "../../UI/Icons/App.icons";
 
 export default function UserMenuIndex() {
   const { user, signOut } = useUser();
-  console.log("user:", user);
   const modelRef = useRef(null);
   const [isOpen, setIsOpen] = useModel(modelRef);
   //User is undefined when the query is still loading prevent the component from rendering
@@ -21,7 +20,7 @@ export default function UserMenuIndex() {
       <NavLinkCmp
         styleMode="none"
         styleSize="none"
-        className="border p-2 rounded-sm"
+        className="border p-2 rounded-sm flex items-center justify-center "
         to="/auth"
       >
         Sign-In

@@ -6,6 +6,7 @@ import { RouteConfig } from "./types/app.type";
 import Home from "./pages/Home";
 import AuthIndex from "./pages/AuthIndex";
 import ProgramsIndex from "./pages/ProgramsIndex";
+import ProgramDetailsIndex from "./components/Program/Details/ProgramDetailsIndex";
 
 export const renderRoutes = (routes: RouteConfig[]) => {
   return routes.map((route) => (
@@ -27,6 +28,10 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/programs/",
     element: <ProgramsIndex />,
+  },
+  {
+    path: "/programs/:id",
+    element: <ProgramDetailsIndex />,
   },
   // {
   //   path: "/trainer",

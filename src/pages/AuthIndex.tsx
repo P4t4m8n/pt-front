@@ -6,7 +6,7 @@ import Button from "../components/UI/Button";
 //Hooks
 import { useUser } from "../hooks/useUser";
 //Utils
-import { ValidationError } from "../utils/ValidationError";
+import { ClientError } from "../utils/ClientError";
 //Components
 import EmailForm from "../components/Auth/EmailForm";
 import { TAuthSignInDto, TAuthSignUpDto } from "../types/auth.type";
@@ -67,7 +67,7 @@ export default function AuthIndex(): JSX.Element {
 
       navigate("/");
     } catch (error) {
-      if (error instanceof ValidationError) {
+      if (error instanceof ClientError) {
         setServerErrors(error?.validationErrors?.errors);
         showUserMsg(ERROR_MESSAGES.validation, "warning");
       } else {

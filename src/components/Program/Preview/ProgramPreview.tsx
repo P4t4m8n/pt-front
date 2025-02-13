@@ -1,5 +1,5 @@
 //Types
-import { TProgram } from "../../../types/program.type";
+import { TProgram, TProgramDto } from "../../../types/program.type";
 //Service
 import { dateUtil } from "../../../utils/date.util";
 //UI
@@ -13,16 +13,24 @@ import ProgramEditInputs from "../Edit/ProgramEditInputs";
 interface Props {
   program: TProgram;
   handleItem: (formData: FormData) => Promise<boolean>;
+  serverErrors?: Record<keyof TProgramDto, string> | null;
 }
+//TODO find a better and more efficient way to handle the server errors.
+//At the moment errors are being pass to all children and only the open model renders them
 
-export default function ProgramPreview({ program, handleItem }: Props) {
+export default function ProgramPreview({
+  program,
+  handleItem,
+  serverErrors,
+}: Props) {
   const { id, startDate, endDate, isActive, name } = program;
-  const url = `/program/${id}`;
+  const url = `/programs/${id}`;
 
   const dates =
     dateUtil.formatDateForPreview(startDate) +
     " - " +
     dateUtil.formatDateForPreview(endDate);
+
   return (
     <li className="border p-2 rounded flex justify-between h-12 items-center">
       <p>{name}</p>
@@ -45,7 +53,10 @@ export default function ProgramPreview({ program, handleItem }: Props) {
           }}
           model={
             <EditForm handleItem={handleItem}>
-              <ProgramEditInputs program={program} />
+              <ProgramEditInputs
+                program={program}
+                serverErrors={serverErrors}
+              />
             </EditForm>
           }
         />
