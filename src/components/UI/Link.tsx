@@ -49,7 +49,7 @@ export default function NavLinkCmp({
 }: Props) {
   const style = className
     ? className
-    : ` ${STYLES[styleMode]} ${SIZES[styleSize]} font-title
+    : ` ${STYLES[styleMode]} ${SIZES[styleSize]}
               rounded-md
               transition-all
               duration-200

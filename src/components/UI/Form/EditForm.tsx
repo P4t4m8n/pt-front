@@ -3,7 +3,7 @@ import { useState } from "react";
 //UI
 import Button from "../Button";
 
-interface Props {
+interface EditFormProps extends React.HTMLAttributes<HTMLFormElement> {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   handleItem: (formData: FormData) => Promise<boolean>;
   children?: React.ReactNode;
@@ -14,7 +14,8 @@ export default function EditForm({
   setIsOpen,
   handleItem,
   disabled,
-}: Props) {
+  ...props
+}: EditFormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,15 +30,16 @@ export default function EditForm({
   };
   return (
     <form
-      className="pt-4 flex flex-col gap-4 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black p-4 rounded h-main-with-gap w-96"
+      className="pt-4 flex flex-col gap-4 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background-dark p-4 rounded max-h-main-with-gap w-[28rem] max-w-[calc(100%-.5rem)] shadow-border-orange"
       onSubmit={onSubmit}
+      {...props}
     >
       {children}
       <Button
         styleMode="secondary"
         styleSize="large"
         type="submit"
-        className=""
+        className="w-full h-10 text-center bg-accent-light text-text-light dark:text-text-dark p-2 rounded font-semibold text-sm leading-7.5 "
         disabled={isLoading || disabled}
       >
         Save

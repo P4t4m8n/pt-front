@@ -23,6 +23,9 @@
 .shadow-border {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
+.shadow-border-orange {
+  box-shadow: 0 0 0 1px rgba(231, 57, 4, 0.9);
+}
 .shadow-border-b {
   box-shadow: 0 2px 1px -1px rgba(255, 255, 255, 0.2);
 }

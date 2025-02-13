@@ -33,7 +33,7 @@ export default function EmailForm({
         aria-label={`${isLogin ? "Login" : "Sign-up"} form`}
       >
         {inputs.map((input) => (
-          <Input key={input.name} {...input} id={input.name}>
+          <Input key={input.name} {...input} id={input.name} >
             <Label
               className=" block font-semibold text-sm "
               htmlFor={input.name}
